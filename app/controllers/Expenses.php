@@ -2,17 +2,18 @@
 
 class Expenses extends Controller
 {
-    public function index(){
+    public function __construct(){
         $this->checkLoggedIn();
+    }
 
+    public function index(){
+        
         $user_id = $_SESSION['user_id'];
         $expenses = Expense::where('user_id', $user_id)->get();
         $this->view('expenses/index', ['expenses' => $expenses]);
     }
 
     public function createExpense(){
-        $this->checkLoggedIn();
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $category_name = $_POST['category_name'];
             $amount = $_POST['amount'];
@@ -38,8 +39,6 @@ class Expenses extends Controller
     
 
     public function createCategory(){
-        $this->checkLoggedIn();
-        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $name = $_POST['name'];
             $user_id = $_SESSION['user_id'];

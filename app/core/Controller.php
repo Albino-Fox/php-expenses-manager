@@ -3,12 +3,15 @@
 class Controller
 {
     protected function checkLoggedIn(){
-        if (!isset($_SESSION['user_id'])) {
+        $allowed_routes = ['login', 'register'];
+
+        if (!isset($_SESSION['user_id']) && !in_array($_GET['url'], $allowed_routes)) {
             header('Location: /login');
             exit;
         }
     }
-    
+
+
     protected function model($model){
         require_once 'app/models/' . $model . '.php';
         return new $model();
