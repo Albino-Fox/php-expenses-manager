@@ -8,7 +8,12 @@
 <body>
     <h2>Create Expense</h2>
     <form action="/expenses/createExpense" method="post">
-        <input type="text" name="category_name" placeholder="Category Name">
+        <label for="category_name">Category:</label>
+        <select name="category_name" id="category_name">
+            <?php foreach($data['categories'] as $category) { ?>
+                <option value="<?php echo $category->name; ?>"><?php echo $category->name; ?></option>
+            <?php } ?>
+        </select>
         <input type="number" name="amount" placeholder="Amount">
         <button type="submit">Create Expense</button>
     </form>

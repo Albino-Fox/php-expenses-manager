@@ -14,26 +14,34 @@ class Expenses extends Controller
     }
 
     public function createExpense(){
+
+        $user_id = $_SESSION['user_id'];
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $category_name = $_POST['category_name'];
             $amount = $_POST['amount'];
     
-            $category = Category::where('name', $category_name)->first();
+            // Only find categories associated with the current user
+            $category = Category::where('name', $category_name)->where('user_id', $user_id)->first();
             if (!$category) {
-                echo('Category not found');
+                echo('Category not found or you do not have access to this category');
                 return;
             }
     
             $expense = new Expense;
             $expense->create([
-                'user_id' => $_SESSION['user_id'],
+                'user_id' => $user_id,
                 'category_id' => $category->id,
                 'amount' => $amount,
                 'created_at' => date('Y-m-d H:i:s')  // current date-time
             ]);
             echo('Expense created: ' . $amount);
         } else {
-            $this->view('expenses/createExpense');
+            // Fetch categories associated with the user
+            $categories = Category::where('user_id', $user_id)->get();
+    
+            // Pass the categories to the view
+            $this->view('expenses/createExpense', ['categories' => $categories]);
         }
     }
     
