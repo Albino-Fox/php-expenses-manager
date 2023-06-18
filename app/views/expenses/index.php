@@ -6,23 +6,19 @@
     <title>Expenses</title>
 </head>
 <body>
-    <h2>Expenses</h2>
+    <h2>Your Expenses</h2>
     <table>
         <tr>
             <th>ID</th>
-            <th>User ID</th>
             <th>Category ID</th>
             <th>Amount</th>
-            <th>Created At</th>
         </tr>
         <?php foreach ($data['expenses'] as $expense): ?>
-        <tr>
-            <td><?= $expense->id ?></td>
-            <td><?= $expense->user_id ?></td>
-            <td><?= $expense->category_id ?></td>
-            <td><?= $expense->amount ?></td>
-            <td><?= $expense->created_at ?></td>
-        </tr>
+            <tr>
+                <td><?= $expense->id ?></td>
+                <td><?= $expense->category_id ?></td>
+                <td><?= $expense->amount ?></td>
+            </tr>
         <?php endforeach; ?>
     </table>
 </body>
