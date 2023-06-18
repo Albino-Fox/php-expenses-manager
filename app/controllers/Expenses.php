@@ -10,13 +10,19 @@ class Expenses extends Controller
 
     public function createExpense(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $category_id = $_POST['category_id'];
+            $category_name = $_POST['category_name'];
             $amount = $_POST['amount'];
+    
+            $category = Category::where('name', $category_name)->first();
+            if (!$category) {
+                echo('Category not found');
+                return;
+            }
     
             $expense = new Expense;
             $expense->create([
                 'user_id' => $_SESSION['user_id'],
-                'category_id' => $category_id,
+                'category_id' => $category->id,
                 'amount' => $amount,
                 'created_at' => date('Y-m-d H:i:s')  // current date-time
             ]);
@@ -25,6 +31,7 @@ class Expenses extends Controller
             $this->view('expenses/createExpense');
         }
     }
+    
 
     public function createCategory(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -8,7 +8,7 @@
 <body>
     <h2>Create Expense</h2>
     <form action="/expenses/createExpense" method="post">
-        <input type="number" name="category_id" placeholder="Category ID">
+        <input type="text" name="category_name" placeholder="Category Name">
         <input type="number" name="amount" placeholder="Amount">
         <button type="submit">Create Expense</button>
     </form>

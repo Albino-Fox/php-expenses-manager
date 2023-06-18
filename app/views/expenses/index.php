@@ -10,16 +10,19 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>Category ID</th>
+            <th>Category Name</th>
             <th>Amount</th>
         </tr>
-        <?php foreach ($data['expenses'] as $expense): ?>
+        <?php foreach ($data['expenses'] as $expense): 
+            $category = Category::find($expense->category_id);
+        ?>
             <tr>
                 <td><?= $expense->id ?></td>
-                <td><?= $expense->category_id ?></td>
+                <td><?= $category->name ?></td>
                 <td><?= $expense->amount ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
+
 </body>
 </html>
