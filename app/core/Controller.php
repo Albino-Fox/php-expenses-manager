@@ -5,7 +5,7 @@ class Controller
     protected function checkLoggedIn(){
         $allowed_routes = ['login', 'register'];
 
-        if (!isset($_SESSION['user_id']) && !in_array($_GET['url'], $allowed_routes)) {
+        if (!isset($_SESSION['user_id']) && !in_array($_GET['url'], $allowed_routes)) { //question mark
             header('Location: /login');
             exit;
         }

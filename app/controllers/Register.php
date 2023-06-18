@@ -26,13 +26,26 @@ class Register extends Controller
             }
     
             $user = new User;
-            $user->create([
+            $new_user = $user->create([
                 'login' => $login,
                 'password' => $password,
                 'email' => $email
             ]);
             echo('User created: ' . $login);
+
+            $this->createDefaultCategories($new_user->id);
         }
     }
     
+    public function createDefaultCategories($user_id){
+        $default_categories = ['Food', 'Rent', 'Entertainment']; //expaand
+    
+        foreach ($default_categories as $category_name) {
+            $category = new Category;
+            $category->create([
+                'name' => $category_name,
+                'user_id' => $user_id
+            ]);
+        }
+    }
 }
