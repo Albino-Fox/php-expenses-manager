@@ -7,6 +7,7 @@
     <title>Home</title>
 </head>
 <body>
+    
     <nav>
         <ul>
             <li><a href="/login">Login</a></li>
@@ -14,6 +15,7 @@
             <li><a href="/expenses/createCategory">Create Category</a></li>
             <li><a href="/expenses/createExpense">Create Expense</a></li>
             <li><a href="/expenses">View Expenses</a></li>
+            <li><a href="/logout">Logout</a></li>
         </ul>
     </nav>
 </body>
