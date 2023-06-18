@@ -2,12 +2,9 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class User extends Eloquent
+class Category extends Eloquent
 {
-    public $name;
-
     protected $primaryKey = 'id';
-    protected $fillable = ['login', 'password', 'email'];
-    
+    protected $fillable = ['name', 'user_id'];
     public $timestamps = false;
 }

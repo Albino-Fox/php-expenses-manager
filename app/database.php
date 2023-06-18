@@ -9,7 +9,7 @@ $capsule->addConnection([
     'host' => '127.0.0.1',
     'username' => 'root',
     'password' => '',
-    'database' => 'test',
+    'database' => 'expenses_manager_db',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => ''
