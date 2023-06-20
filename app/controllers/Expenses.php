@@ -25,18 +25,18 @@ class Expenses extends Controller
             $selected_date = $_POST['selected_date'];
 
             if(!isset(trim($selected_date)[0])){
-                echo('Date is not selected');
+                $this->showMsg(['Date is not selected']);
                 return;
             };
 
             if (!isset(trim($amount)[0])) {
-                echo('Amount is empty');
+                $this->showMsg(['Amount is empty']);
                 return;
             }
 
             $category = Category::where('name', $category_name)->first();
             if (!$category) {
-                echo('Category not found');
+                $this->showMsg(['Category not found']);
                 return;
             }
     
