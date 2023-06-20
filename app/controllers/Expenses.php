@@ -22,6 +22,11 @@ class Expenses extends Controller
             $amount = $_POST['amount'];
             $vendor_name = $_POST['vendor_name'];  // assuming vendor_name is passed
     
+            if (empty(trim($amount))) {
+                echo('Amount is empty');
+                return;
+            }
+
             $category = Category::where('name', $category_name)->first();
             if (!$category) {
                 echo('Category not found');
@@ -60,6 +65,10 @@ class Expenses extends Controller
             $user_id = $_SESSION['user_id'];
             $category_name = $_POST['category_name'];
     
+            if(empty(trim($category_name))){
+                echo ('Category name is empty.');
+                return;
+            }
 
             $category = Category::where('name', $category_name)->where('user_id', $user_id)->first();
             if(!$category){
@@ -80,7 +89,12 @@ class Expenses extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $vendor_name = $_POST['vendor_name'];
             $user_id = $_SESSION['user_id'];
-    
+            
+            if(empty(trim($vendor_name))){
+                echo ('Vendor name is empty.');
+                return;
+            }
+
             $vendor = Vendor::where('name', $vendor_name)->where('user_id', $user_id)->first();
             if (!$vendor) {
                 $vendor = new Vendor;
