@@ -10,7 +10,8 @@
     <table>
         <tr>
             <th>ID</th>
-            <th>Category Name</th>
+            <th>Category name</th>
+            <th>Vendor</th>
             <th>Amount</th>
         </tr>
         <?php foreach ($data['expenses'] as $expense): 
@@ -19,10 +20,12 @@
             <tr>
                 <td><?= $expense->id ?></td>
                 <td><?= $category->name ?></td>
+                <td><?php if($expense->vendor) echo($expense->vendor->name); ?></td>
                 <td><?= $expense->amount ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
 
+    
 </body>
 </html>
