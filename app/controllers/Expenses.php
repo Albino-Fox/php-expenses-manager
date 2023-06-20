@@ -60,12 +60,19 @@ class Expenses extends Controller
             $user_id = $_SESSION['user_id'];
             $category_name = $_POST['category_name'];
     
+
+            $category = Category::where('name', $category_name)->where('user_id', $user_id)->first();
+            if(!$category){
             $category = new Category;
             $category->create([
                 'name' => $category_name,
                 'user_id' => $user_id
             ]);
             echo('Category created: ' . $category_name);
+            }
+            else {
+                echo('Category already exists: ' . $category_name);
+            }
         }
     }
 
