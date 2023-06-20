@@ -62,7 +62,7 @@ class Expenses extends Controller
 
             $expense = new Expense;
             $expense->create([
-                'user_id' => $_SESSION['user_id'],
+                'user_id' => $user_id,
                 'category_id' => $category->id,
                 'vendor_id' => $vendor_id,
                 'account_id' => $account_id,

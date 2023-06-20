@@ -2,11 +2,11 @@
 
 class Register extends Controller
 {
-    public function __construct(){
-        $this->checkLoggedIn();
-    }
-
     public function index(){
+        if(isset($_SESSION['user_id'])){
+            $this->view('home/index');
+            return;
+        }
         $this->view('register/index');
     }
 
