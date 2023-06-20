@@ -27,7 +27,7 @@ class Expenses extends Controller
                 echo('Date is not selected');
                 return;
             };
-            echo ($selected_date);
+            
             if (!isset(trim($amount)[0])) {
                 echo('Amount is empty');
                 return;
