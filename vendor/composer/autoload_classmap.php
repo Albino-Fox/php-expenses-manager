@@ -15,4 +15,5 @@ return array(
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'User' => $baseDir . '/app/models/User.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+    'Vendor' => $baseDir . '/app/models/Vendor.php',
 );
