@@ -115,6 +115,7 @@ class ComposerStaticInit33487b8292847e480fe7a046c11d10c1
     );
 
     public static $classMap = array (
+        'Account' => __DIR__ . '/../..' . '/app/models/Account.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Category' => __DIR__ . '/../..' . '/app/models/Category.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',

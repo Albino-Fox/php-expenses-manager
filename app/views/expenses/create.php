@@ -22,6 +22,12 @@
         <input type="submit" value="Create Vendor">
     </form>
 
+    <form method="POST" action="/expenses/createAccount">
+        <label for="account_name">Account Name:</label>
+        <input type="text" id="account_name" name="account_name">
+        <input type="submit" value="Create Account">
+    </form>
+
     </br>
 
     <!-- Expense Form -->
@@ -37,6 +43,13 @@
             <option value=""></option>
             <?php foreach($data['vendors'] as $vendor) { ?>
                 <option value="<?= $vendor->name; ?>"><?= $vendor->name; ?></option>
+            <?php } ?>
+        </select>
+        <label for="account_name">Account:</label>
+        <select name="account_name" id="account_name">
+            <option value=""></option>
+            <?php foreach($data['accounts'] as $account) { ?>
+                <option value="<?= $account->name; ?>"><?= $account->name; ?></option>
             <?php } ?>
         </select>
         <label for="amount">Amount:</label>

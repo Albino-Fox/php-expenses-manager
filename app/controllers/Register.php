@@ -34,16 +34,29 @@ class Register extends Controller
             echo('User created: ' . $login);
 
             $this->createDefaultCategories($new_user->id);
+            $this->createDefaultAccounts($new_user->id);
         }
     }
     
     public function createDefaultCategories($user_id){
-        $default_categories = ['Food', 'Rent', 'Entertainment']; //expaand
+        $default_categories = ['Food', 'Rent', 'Entertainment', 'Car']; //expaand
     
         foreach ($default_categories as $category_name) {
             $category = new Category;
             $category->create([
                 'name' => $category_name,
+                'user_id' => $user_id
+            ]);
+        }
+    }
+
+    public function createDefaultAccounts($user_id){
+        $default_accounts = ['Cash', 'Checking', 'Savings', 'Visa']; //expaand
+    
+        foreach ($default_accounts as $account_name) {
+            $account = new Account;
+            $account ->create([
+                'name' => $account_name,
                 'user_id' => $user_id
             ]);
         }

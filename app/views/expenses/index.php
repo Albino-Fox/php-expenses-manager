@@ -12,6 +12,7 @@
             <th>ID</th>
             <th>Category name</th>
             <th>Vendor</th>
+            <th>Account</th>
             <th>Amount</th>
             <th>Date</th>
         </tr>
@@ -22,12 +23,12 @@
                 <td><?= $expense->id ?></td>
                 <td><?= $category->name ?></td>
                 <td><?php if($expense->vendor) echo($expense->vendor->name); ?></td>
+                <td><?php if($expense->account) echo($expense->account->name); ?></td>
                 <td><?= $expense->amount ?></td>
                 <td><?= $expense->date ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
-
     
 </body>
 </html>

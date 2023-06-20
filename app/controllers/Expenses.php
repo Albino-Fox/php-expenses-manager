@@ -9,7 +9,7 @@ class Expenses extends Controller
     public function index(){
 
         $user_id = $_SESSION['user_id'];
-        $expenses = Expense::where('user_id', $user_id)->with('vendor')->get();
+        $expenses = Expense::where('user_id', $user_id)->with('vendor')->with('account')->get();
         $this->view('expenses/index', ['expenses' => $expenses]);
     }
     
@@ -20,14 +20,15 @@ class Expenses extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $category_name = $_POST['category_name'];
             $amount = $_POST['amount'];
-            $vendor_name = $_POST['vendor_name'];  // assuming vendor_name is passed
+            $vendor_name = $_POST['vendor_name'];
+            $account_name = $_POST['account_name'];
             $selected_date = $_POST['selected_date'];
 
             if(!isset(trim($selected_date)[0])){
                 echo('Date is not selected');
                 return;
             };
-            
+
             if (!isset(trim($amount)[0])) {
                 echo('Amount is empty');
                 return;
@@ -49,11 +50,22 @@ class Expenses extends Controller
                 $vendor_id = $vendor->id;
             } 
     
+            $account_id = null;
+            if(isset(trim($account_name)[0])) {
+                $account = Account::where('name', $account_name)->first();
+                if (!$account) {
+                    echo('Account not found');
+                    return;
+                }
+                $account_id = $account->id;
+            } 
+
             $expense = new Expense;
             $expense->create([
                 'user_id' => $_SESSION['user_id'],
                 'category_id' => $category->id,
                 'vendor_id' => $vendor_id,
+                'account_id' => $account_id,
                 'amount' => $amount,
                 'date' => $selected_date
             ]);
@@ -61,7 +73,8 @@ class Expenses extends Controller
         } else {
             $categories = Category::where('user_id', $user_id)->get();
             $vendors = Vendor::where('user_id', $user_id)->get();
-            $this->view('expenses/create', ['categories' => $categories, 'vendors' => $vendors]);
+            $accounts = Account::where('user_id', $user_id)->get();
+            $this->view('expenses/create', ['categories' => $categories, 'vendors' => $vendors, 'accounts' => $accounts]);
         }
     }    
     
@@ -114,4 +127,30 @@ class Expenses extends Controller
             }
         }
     }
+
+    public function createAccount()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $account_name = $_POST['account_name'];
+            $user_id = $_SESSION['user_id'];
+            
+            if(!isset(trim($account_name)[0])){
+                echo ('Vendor name is empty.');
+                return;
+            }
+
+            $account = Account::where('name', $account_name)->where('user_id', $user_id)->first();
+            if (!$account) {
+                $account = new account;
+                $account->create([
+                    'name' => $account_name,
+                    'user_id' => $user_id
+                ]);
+                echo('Account created: ' . $account_name);
+            } else {
+                echo('Account already exists: ' . $account_name);
+            }
+        }
+    }
+
 }

@@ -2,13 +2,13 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Vendor extends Eloquent
+class Account extends Eloquent
 {
-    protected $table = 'vendors';
+    protected $table = 'accounts';
     protected $primaryKey = 'id';
-    public $timestamps = false;
     protected $fillable = ['name', 'user_id'];
-    
+    public $timestamps = false;
+
     public function expenses()
     {
         return $this->hasMany('Expense');
