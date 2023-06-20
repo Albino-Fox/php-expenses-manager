@@ -13,6 +13,7 @@
             <th>Category name</th>
             <th>Vendor</th>
             <th>Amount</th>
+            <th>Date</th>
         </tr>
         <?php foreach ($data['expenses'] as $expense): 
             $category = Category::find($expense->category_id);
@@ -22,6 +23,7 @@
                 <td><?= $category->name ?></td>
                 <td><?php if($expense->vendor) echo($expense->vendor->name); ?></td>
                 <td><?= $expense->amount ?></td>
+                <td><?= $expense->date ?></td>
             </tr>
         <?php endforeach; ?>
     </table>
