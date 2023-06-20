@@ -8,9 +8,6 @@ class Controller
         if (!isset($_SESSION['user_id']) && !in_array($_GET['url'], $allowed_routes)) { //question mark
             header('Location: /login');
             exit;
-        } else if(in_array($_GET['url'], $allowed_routes)){
-            header('Location: /home');
-            exit;
         }
     }
 
