@@ -5,20 +5,6 @@ class Home extends Controller
     public function index(){
         $this->view('home/index');
     }
-
-    public function createCategory(){
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $name = $_POST['name'];
-            $user_id = $_POST['user_id'];
-    
-            $category = new Category;
-            $category->create([
-                'name' => $name,
-                'user_id' => $user_id
-            ]);
-            echo('Category created: ' . $name);
-        }
-    }
     
     public function viewExpenses(){
         if (isset($_SESSION['user_id'])) {
