@@ -2,6 +2,10 @@
 
 class Register extends Controller
 {
+    public function __construct(){
+        $this->checkLoggedIn();
+    }
+
     public function index(){
         $this->view('register/index');
     }

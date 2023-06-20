@@ -2,6 +2,10 @@
 
 class Login extends Controller
 {
+    public function __construct(){
+        $this->checkLoggedIn();
+    }
+    
     public function index(){
         $this->view('login/index');
     }
