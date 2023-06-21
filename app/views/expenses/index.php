@@ -21,15 +21,20 @@
             $category = Category::find($expense->category_id);
         ?>
             <tr>
-                <td><?= $expense->id ?></td>
-                <td><?= $category->name ?></td>
+                <td><?= $expense->id ?></td>                
+                <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="category"><?= $category->name ?></td>
                 <td><?php if($expense->vendor) echo($expense->vendor->name); else echo('-');?></td>
                 <td><?php if($expense->account) echo($expense->account->name); else echo('-');?></td>
-                <td><?= $expense->amount ?></td>
-                <td><?= $expense->date ?></td>
+                <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="amount" data-old-value="<?= $expense->amount ?>"><?= $expense->amount ?></td>
+                <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="date" data-old-value="<?= $expense->date ?>"><?= $expense->date ?></td>
+
             </tr>
         <?php endforeach; ?>
     </table>
-    
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="/js/dynamic_table.js"></script>
+
 </body>
 </html>

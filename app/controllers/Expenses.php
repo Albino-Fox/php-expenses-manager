@@ -160,4 +160,37 @@ class Expenses extends Controller
         echo(json_encode($accounts));
     }
 
+    public function update()
+    {
+        $expenseId = $_POST['expense_id'];
+        $field = $_POST['field'];
+        $value = $_POST['value'];
+
+        // Validate the new value
+        if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
+            http_response_code(400);
+            echo 'Invalid amount';
+            return;
+        }
+
+        // Validate the date
+        if ($field === 'date') {
+            try {
+                new DateTime($value);
+            } catch (Exception $e) {
+                http_response_code(400);
+                echo 'Invalid date';
+                return;
+            }
+        }
+
+        // Update the expense
+        $expense = Expense::find($expenseId);
+        $expense->$field = $value;
+        $expense->save();
+
+        echo 'Expense updated';
+    }
+
+
 }

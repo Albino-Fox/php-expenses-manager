@@ -1,29 +1,25 @@
 function updateDropdown(dropdownId, url) {
-    var needsUpdate = true;
+    let needsUpdate = true;
 
     $(dropdownId).on('focus', function() {
         if (needsUpdate) {
             // Save the currently selected value
-            var currentValue = $(dropdownId).val();
+            let currentValue = $(dropdownId).val();
 
             $.ajax({
                 url: url,
                 method: 'GET',
                 success: function(response) {
-                    // Clear the current options
                     $(dropdownId).empty();
 
-                    // Parse the response JSON
-                    var items = JSON.parse(response);
+                    let items = JSON.parse(response);
 
                     $(dropdownId).append('<option value=""></option>');
 
-                    // Add each item as an option
                     items.forEach(function(item) {
                         $(dropdownId).append('<option value="' + item.name + '">' + item.name + '</option>');
                     });
 
-                    // If the previously selected value is in the new options, reselect it
                     if ($(dropdownId + ' option[value="' + currentValue + '"]').length > 0) {
                         $(dropdownId).val(currentValue);
                     }
