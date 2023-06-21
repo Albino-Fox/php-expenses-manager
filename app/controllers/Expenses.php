@@ -50,12 +50,16 @@ class Expenses extends Controller
                 return $this->createMsg('error', 'Amount is empty');
             }
 
-            if (!is_numeric($amount)) {
+            if (!is_numeric($amount) || $amount <= 0) {
                 return $this->createMsg('error', 'Amount is incorrect');
             }
 
             if (!isset($expense_type[0])) {
                 return $this->createMsg('error', 'Expense type is empty');
+            }
+            
+            if (!ctype_alpha($expense_type)) {
+                return $this->createMsg('error', 'Expense type is incorrect');
             }
 
             if (strlen($expense_type) != 1) {
@@ -196,7 +200,7 @@ class Expenses extends Controller
         $value = $_POST['value'];
 
         // validate the amount
-        if ($field === 'amount' && (!is_numeric($value) || $value < 0)) {
+        if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
             http_response_code(400);
             return $this->createMsg('error', 'Invalid amount');
         }
