@@ -176,39 +176,20 @@ class Expenses extends Controller
         // Validate the date
         if ($field === 'date') {
             $date = DateTime::createFromFormat('Y-m-d', $value);
-        
+
             if ($date === false) {
                 http_response_code(400);
                 echo 'Invalid date format';
                 return;
             }
-        
+
             $errors = DateTime::getLastErrors();
-        
+
             if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
                 http_response_code(400);
                 echo 'Invalid date';
                 return;
             }
-        }
-
-        // Handle fields that refer to other entities
-        if ($field === 'category' || $field === 'vendor' || $field === 'account') {
-            // The class name should be the capitalized field name
-            $className = ucfirst($field);
-            $entity = $className::where('name', $value)->first();
-
-            // If the entity was not found, return an error
-            if (!$entity) {
-                http_response_code(400);
-                echo ucfirst($field) . ' not found';
-                return;
-            }
-
-            // Use the id of the found entity for the update
-            $value = $entity->id;
-            // Adjust the field name to include _id
-            $field .= '_id';
         }
 
         // Update the expense
@@ -218,8 +199,4 @@ class Expenses extends Controller
 
         echo 'Expense updated';
     }
-
-
-
-
 }
