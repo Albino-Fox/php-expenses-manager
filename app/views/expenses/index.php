@@ -6,6 +6,7 @@
     <title>Expenses</title>
 </head>
 <body>
+    <!--NAVBAR_PLACEHOLDER-->
     <h2>Your Expenses</h2>
     <table>
         <tr>

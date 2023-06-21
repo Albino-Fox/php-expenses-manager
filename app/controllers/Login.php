@@ -22,7 +22,7 @@ class Login extends Controller
             $user = User::where('login', $login)->first();
             if ($user && password_verify($password, $user->password)) {
                 $_SESSION['user_id'] = $user->id;
-                echo('Logged in: ' . $login); //think it over
+                return $this->createMsg('success', 'Logged in: ' . $login);
             } else {
                 return $this->createMsg('error', 'Incorrect login or password');
             }

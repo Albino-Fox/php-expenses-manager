@@ -6,12 +6,16 @@
     <title>Register</title>
 </head>
 <body>
+    <!--NAVBAR_PLACEHOLDER-->
+    
     <h2>Register</h2>
-    <form action="register/createUser" method="post">
+    <form action="register/createUser" method="post" data-response="registerMsg">
         <input type="text" name="login" placeholder="Login">
         <input type="password" name="password" placeholder="Password">
-        <input type="email" name="email" placeholder="Email">
+        <!-- <input type="email" name="email" placeholder="Email"> -->
         <button type="submit">Register</button>
     </form>
+
+    <!--SCRIPTS_PLACEHOLDER-->
 </body>
 </html>

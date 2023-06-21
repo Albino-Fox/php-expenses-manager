@@ -14,27 +14,29 @@ class Register extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'];
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            $email = $_POST['email'];
+            // $email = $_POST['email'];
     
             $existingUser = User::where('login', $login)->first();
             if ($existingUser) {
                 return $this->createMsg('error', 'User with this login already exists');
             }
     
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                return $this->createMsg('error', 'Invalid email format');
-            }
+            // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            //     return $this->createMsg('error', 'Invalid email format');
+            // }
     
+
             $user = new User;
             $new_user = $user->create([
                 'login' => $login,
                 'password' => $password,
-                'email' => $email
+                // 'email' => $email
             ]);
-            echo('User created: ' . $login); //think it over
-
+            
             $this->createDefaultCategories($new_user->id);
             $this->createDefaultAccounts($new_user->id);
+
+            return $this->createMsg('success', 'User created: ' . $login);
         }
     }
     

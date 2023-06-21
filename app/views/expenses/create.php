@@ -8,23 +8,23 @@
     <title>Add expenses</title>
 </head>
 <body>
-
+    <!--NAVBAR_PLACEHOLDER-->
 
     <!-- Category Form -->
-    <form method="POST" action="/expenses/createCategory">
+    <form id="create_category_form" method="POST" action="/expenses/createCategory" data-response="categoryMsg">
         <label for="category_name">Category Name:</label>
         <input type="text" id="category_name" name="category_name">
         <input type="submit" value="Create Category">
     </form>
 
     <!-- Vendor Form -->
-    <form method="POST" action="/expenses/createVendor">
+    <form id="create_vendor_form" method="POST" action="/expenses/createVendor" data-response="vendorMsg">
         <label for="vendor_name">Vendor Name:</label>
-        <input type="text" id="vendor_name" name="vendor_name">
+        <input type="text" id="vendor_name" name="vendor_name" >
         <input type="submit" value="Create Vendor">
     </form>
 
-    <form method="POST" action="/expenses/createAccount">
+    <form id="create_account_form" method="POST" action="/expenses/createAccount" data-response="accountMsg">
         <label for="account_name">Account Name:</label>
         <input type="text" id="account_name" name="account_name">
         <input type="submit" value="Create Account">
@@ -33,7 +33,7 @@
     </br>
 
     <!-- Expense Form -->
-    <form id="expense_form" method="POST" action="/expenses/createExpense">
+    <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
         <label for="category_name">Category:</label>
         <select name="category_name" id="category_name">
             <?php foreach($data['categories'] as $category) { ?>
@@ -60,13 +60,11 @@
         <input type="text" id="datepicker" name="selected_date" value="<?= date('Y-m-d'); ?>">
         <input type="submit" value="Create Expense">
     </form>
-    <p id="message"></p>
 
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!--SCRIPTS_PLACEHOLDER-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
-    <script src="/js/messages.js" type="text/javascript"></script>
     
 
 </body>
