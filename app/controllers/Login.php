@@ -14,19 +14,17 @@ class Login extends Controller
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'];
             $password = $_POST['password'];
-    
-            // Input validation (as an example)
+            
             if (empty($login) || empty($password)) {
-                echo('Please fill in all fields');
-                return;
+                return $this->createMsg('error', 'Please fill in all fields');
             }
     
             $user = User::where('login', $login)->first();
             if ($user && password_verify($password, $user->password)) {
                 $_SESSION['user_id'] = $user->id;
-                echo('Logged in: ' . $login);
+                echo('Logged in: ' . $login); //think it over
             } else {
-                echo('Incorrect login or password');
+                return $this->createMsg('error', 'Incorrect login or password');
             }
         }
     }

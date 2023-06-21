@@ -11,8 +11,12 @@ class Controller
         }
     }
     
-    public function showMsg($data){
-        $this->view('messages/index', $data);
+    public function createMsg($status, $message){
+        $response['status'] = $status;
+        $response['message'] = $message;
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode($response);
+        exit;
     }
     
     protected function model($model){

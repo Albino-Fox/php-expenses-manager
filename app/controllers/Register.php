@@ -16,17 +16,13 @@ class Register extends Controller
             $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
             $email = $_POST['email'];
     
-            // Check if user already exists
             $existingUser = User::where('login', $login)->first();
             if ($existingUser) {
-                echo('User with this login already exists');
-                return;
+                return $this->createMsg('error', 'User with this login already exists');
             }
     
-            // Input validation (as an example)
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                echo('Invalid email format');
-                return;
+                return $this->createMsg('error', 'Invalid email format');
             }
     
             $user = new User;
@@ -35,7 +31,7 @@ class Register extends Controller
                 'password' => $password,
                 'email' => $email
             ]);
-            echo('User created: ' . $login);
+            echo('User created: ' . $login); //think it over
 
             $this->createDefaultCategories($new_user->id);
             $this->createDefaultAccounts($new_user->id);
