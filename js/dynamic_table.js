@@ -17,7 +17,14 @@ $(document).ready(function() {
 
         td.data('editing', true);  // Set the editing flag to true
         td.text('');
-        var input = $('<input type="text">');
+        console.log(field);
+        if(field == 'date'){
+            var input = $('<input type="text" id="datepicker" name="selected_date">');
+        }
+        else {
+            var input = $('<input type="text">');
+        }
+        
         input.val(oldValue);
         td.append(input);
         input.focus();
@@ -34,7 +41,7 @@ $(document).ready(function() {
                 })
                 .done(function() {
                     td.text(newValue);
-                    td.data('old-value', newValue);  // Update the old value
+                    td.data('old-value', newValue);
                 })
                 .fail(function() {
                     td.text(oldValue);
@@ -43,3 +50,4 @@ $(document).ready(function() {
         });
     });
 });
+
