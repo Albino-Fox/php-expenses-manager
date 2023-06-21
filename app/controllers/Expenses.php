@@ -26,6 +26,11 @@ class Expenses extends Controller
 
             if(!isset(trim($selected_date)[0])){
                 $this->showMsg(['Date is not selected']);
+                //ultra-bad crap but does what i need.
+                // $categories = Category::where('user_id', $user_id)->get();
+                // $vendors = Vendor::where('user_id', $user_id)->get();
+                // $accounts = Account::where('user_id', $user_id)->get();
+                // $this->view('expenses/create', ['categories' => $categories, 'vendors' => $vendors, 'accounts' => $accounts]);
                 return;
             };
 
@@ -77,7 +82,6 @@ class Expenses extends Controller
             $this->view('expenses/create', ['categories' => $categories, 'vendors' => $vendors, 'accounts' => $accounts]);
         }
     }    
-    
 
     public function createCategory(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -89,16 +93,14 @@ class Expenses extends Controller
                 return;
             }
 
-            $category = Category::where('name', $category_name)->where('user_id', $user_id)->first();
-            if(!$category){
-            $category = new Category;
-            $category->create([
+            $category = Category::firstOrCreate([
                 'name' => $category_name,
                 'user_id' => $user_id
             ]);
-            echo('Category created: ' . $category_name);
-            }
-            else {
+            
+            if ($category->wasRecentlyCreated) {
+                echo('Category created: ' . $category_name);
+            } else {
                 echo('Category already exists: ' . $category_name);
             }
         }
@@ -114,13 +116,12 @@ class Expenses extends Controller
                 return;
             }
 
-            $vendor = Vendor::where('name', $vendor_name)->where('user_id', $user_id)->first();
-            if (!$vendor) {
-                $vendor = new Vendor;
-                $vendor->create([
-                    'name' => $vendor_name,
-                    'user_id' => $user_id
-                ]);
+            $vendor = Vendor::firstOrCreate([
+                'name' => $vendor_name,
+                'user_id' => $user_id
+            ]);
+            
+            if ($vendor->wasRecentlyCreated) {
                 echo('Vendor created: ' . $vendor_name);
             } else {
                 echo('Vendor already exists: ' . $vendor_name);
@@ -139,13 +140,12 @@ class Expenses extends Controller
                 return;
             }
 
-            $account = Account::where('name', $account_name)->where('user_id', $user_id)->first();
-            if (!$account) {
-                $account = new account;
-                $account->create([
-                    'name' => $account_name,
-                    'user_id' => $user_id
-                ]);
+            $account = Account::firstOrCreate([
+                'name' => $account_name,
+                'user_id' => $user_id
+            ]);
+            
+            if ($account->wasRecentlyCreated) {
                 echo('Account created: ' . $account_name);
             } else {
                 echo('Account already exists: ' . $account_name);

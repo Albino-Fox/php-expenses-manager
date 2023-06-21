@@ -7,7 +7,6 @@
     <title>Home</title>
 </head>
 <body>
-    
     <nav>
         <ul>
             <li><a href="/login">Login</a></li>
