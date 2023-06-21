@@ -15,8 +15,8 @@ class Register extends Controller
             $login = $_POST['login'];
             $password = $_POST['password'];
 
-            $login = rtrim(trim(strip_tags($login)));
-            $password = rtrim(trim(strip_tags($password)));
+            $login = trim(strip_tags($login));
+            $password = trim(strip_tags($password));
 
             if (!isset($login[0]) || !isset($password[0])) {
                 return $this->createMsg('error', 'Please fill in all fields');

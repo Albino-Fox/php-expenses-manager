@@ -41,6 +41,11 @@
                 <option value="<?= $category->name; ?>"><?= $category->name; ?></option>
             <?php } ?>
         </select>
+        <label for="expense_type_name">Type:</label>
+        <select name="expense_type" id="expense_type_name">
+            <option value="E">Expense</option>
+            <option value="I">Income</option>
+        </select>
         <label for="expense_vendor_name">Vendor:</label>
         <select name="vendor_name" id="expense_vendor_name">
             <option value=""></option>

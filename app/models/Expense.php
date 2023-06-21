@@ -6,7 +6,7 @@ class Expense extends Eloquent
 {
     protected $table = 'expenses';
     protected $primaryKey = 'id';
-    protected $fillable = ['user_id', 'category_id', 'amount', 'vendor_id', 'account_id', 'date'];
+    protected $fillable = ['user_id', 'category_id', 'amount', 'type', 'vendor_id', 'account_id', 'date'];
     public $timestamps = false;
 
     public function vendor()

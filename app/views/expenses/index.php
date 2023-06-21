@@ -31,6 +31,7 @@
                 <td class="" data-expense-id="<?= $expense->id ?>" data-field="vendor" data-old-value="<?php if($expense->vendor) echo($expense->vendor->name);?>"><?php if($expense->vendor) echo($expense->vendor->name);?></td>
                 <td class="" data-expense-id="<?= $expense->id ?>" data-field="account" data-old-value="<?php if($expense->account) echo($expense->account->name);?>"><?php if($expense->account) echo($expense->account->name);?></td>
                 <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="amount" data-old-value="<?= $expense->amount ?>"><?= $expense->amount ?></td>
+                <td class="" data-expense-id="<?= $expense->type ?>" data-field="type" data-old-value="<?= $expense->type ?>"><?= $expense->type ?></td>
                 <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="date" data-old-value="<?= $expense->date ?>"><?= $expense->date ?></td>
             </tr>
         <?php endforeach; ?>

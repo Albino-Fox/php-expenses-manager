@@ -15,8 +15,12 @@ class Controller
         $response['status'] = $status;
         $response['message'] = $message;
         header('Content-Type: application/json; charset=utf-8');
-        echo json_encode($response);
+        echo(json_encode($response));
         exit;
+    }
+
+    public function sendJson($data){
+        echo(json_encode($data));
     }
     
     protected function model($model){
@@ -45,6 +49,6 @@ class Controller
             $output = str_replace('<!--SCRIPTS_PLACEHOLDER-->', $scripts, $output);
         }
 
-        echo $output;
+        echo($output);
     }
 } 

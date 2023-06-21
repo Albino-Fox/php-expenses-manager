@@ -12,11 +12,8 @@ class Login extends Controller
     
     public function loginUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $login = $_POST['login'];
-            $password = $_POST['password'];
-            
-            $login = rtrim(trim($login));
-            $password = rtrim(trim($password));
+            $login = trim($_POST['login']);
+            $password = trim($_POST['password']);
 
             if (!isset($login[0]) || !isset($password[0])) {
                 return $this->createMsg('error', 'Please fill in all fields');

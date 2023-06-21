@@ -13,25 +13,53 @@ class Expenses extends Controller
         $expenses = Expense::where('user_id', $user_id)->with('vendor')->with('account')->get();
         $this->view('expenses/index', ['expenses' => $expenses]);
     }
-    
+
     public function createExpense() {
         $response = [];
 
         $user_id = $_SESSION['user_id'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $category_name = $_POST['category_name'];
-            $amount = $_POST['amount'];
-            $vendor_name = $_POST['vendor_name'];
-            $account_name = $_POST['account_name'];
-            $selected_date = $_POST['selected_date'];
+            $category_name = trim($_POST['category_name']);
+            $amount = trim($_POST['amount']);
+            $expense_type = trim($_POST['expense_type']);
+            $vendor_name = trim($_POST['vendor_name']);
+            $account_name = trim($_POST['account_name']);
+            $selected_date = trim($_POST['selected_date']);
 
-            if(!isset(trim($selected_date)[0])){
+
+            //date validation - do i need this here?
+            if(!isset($selected_date[0])){
                 return $this->createMsg('error', 'Date is empty');
             }
+
+            $selected_date = DateTime::createFromFormat('Y-m-d', $selected_date);
+
+            if ($selected_date === false) {
+                return $this->createMsg('error', 'Invalid date format');
+            }
+
+            $errors = DateTime::getLastErrors();
+
+            if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
+                return $this->createMsg('error', 'Invalid date');
+            }
+            //end of date validation
     
-            if (!isset(trim($amount)[0])) {
+            if (!isset($amount[0])) {
                 return $this->createMsg('error', 'Amount is empty');
+            }
+
+            if (!is_numeric($amount)) {
+                return $this->createMsg('error', 'Amount is incorrect');
+            }
+
+            if (!isset($expense_type[0])) {
+                return $this->createMsg('error', 'Expense type is empty');
+            }
+
+            if (strlen($expense_type) != 1) {
+                return $this->createMsg('error', 'Expense type must be (1) in length');
             }
     
             $category = Category::where('name', $category_name)->first();
@@ -64,6 +92,7 @@ class Expenses extends Controller
                 'vendor_id' => $vendor_id,
                 'account_id' => $account_id,
                 'amount' => $amount,
+                'type' => $expense_type,
                 'date' => $selected_date
             ]);
             return $this->createMsg('success', 'Expense created: ' . $amount);
@@ -145,19 +174,19 @@ class Expenses extends Controller
     public function getCategories(){
         $user_id = $_SESSION['user_id'];
         $categories = Category::where('user_id', $user_id)->get();
-        echo(json_encode($categories));
+        $this->sendJson($categories);
     }
 
     public function getVendors(){
         $user_id = $_SESSION['user_id'];
         $vendors = Vendor::where('user_id', $user_id)->get();
-        echo(json_encode($vendors));
+        $this->sendJson($vendors);
     }
     
     public function getAccounts(){
         $user_id = $_SESSION['user_id'];
         $accounts = Account::where('user_id', $user_id)->get();
-        echo(json_encode($accounts));
+        $this->sendJson($accounts);
     }
 
     public function update()
@@ -167,10 +196,9 @@ class Expenses extends Controller
         $value = $_POST['value'];
 
         // validate the amount
-        if ($field === 'amount' && !is_numeric($value)) {
+        if ($field === 'amount' && (!is_numeric($value) || $value < 0)) {
             http_response_code(400);
-            echo 'Invalid amount';
-            return;
+            return $this->createMsg('error', 'Invalid amount');
         }
 
         // validate the date
@@ -179,16 +207,14 @@ class Expenses extends Controller
 
             if ($date === false) {
                 http_response_code(400);
-                echo 'Invalid date format';
-                return;
+                return $this->createMsg('error', 'Invalid date format');
             }
 
             $errors = DateTime::getLastErrors();
 
             if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
                 http_response_code(400);
-                echo 'Invalid date';
-                return;
+                return $this->createMsg('error', 'Invalid date');
             }
         }
 
@@ -196,7 +222,7 @@ class Expenses extends Controller
         $expense->$field = $value;
         $expense->save();
 
-        echo 'Expense updated';
+        return $this->createMsg('success', 'Expense updated');
     }
 
     public function deleteSelected(){
@@ -207,7 +233,7 @@ class Expenses extends Controller
                 $expense->delete();
             }
         }
-        echo 'Expenses deleted';
+        return $this->createMsg('success', 'Expenses deleted');
     }
     
 }
