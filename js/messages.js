@@ -17,10 +17,10 @@ function handleFormSubmission($form) {
             data: $(this).serialize(),
             success: function(response) {
                 if (response.status === 'success') {
-                    // Display success message
+                    // display success message
                     $(messageId).text(response.message).removeClass('error').addClass('success');
 
-                    // Additional redirect functional
+                    // additional redirect functional
                     //maybe use switch case?
                     if (pathArray[0] === 'login') { //as on login page no other 'success' messages
                         window.location.href = '/home';
@@ -28,7 +28,7 @@ function handleFormSubmission($form) {
                         window.location.href = '/login';
                     }
                 } else {
-                    // Display error message
+                    // display error message
                     $(messageId).text(response.message).removeClass('success').addClass('error');
                 }
             },

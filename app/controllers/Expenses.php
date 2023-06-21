@@ -192,7 +192,6 @@ class Expenses extends Controller
             }
         }
 
-        // Update the expense
         $expense = Expense::find($expenseId);
         $expense->$field = $value;
         $expense->save();

@@ -3,7 +3,7 @@ function updateDropdown(dropdownId, url) {
 
     $(dropdownId).on('focus', function() {
         if (needsUpdate) {
-            // Save the currently selected value
+            // save the currently selected value
             let currentValue = $(dropdownId).val();
 
             $.ajax({

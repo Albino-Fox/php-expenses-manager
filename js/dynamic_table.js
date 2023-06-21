@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('.editable').each(function() {
-        // Add a flag to each editable cell indicating whether it's being edited
+        // add a flag to each editable cell indicating whether it's being edited
         $(this).data('editing', false);
     });
 
@@ -10,12 +10,12 @@ $(document).ready(function() {
         var expenseId = td.data('expense-id');
         var field = td.data('field');
 
-        // If the cell is being edited, don't trigger the click event
+        // if the cell is being edited, don't trigger the click event
         if (td.data('editing')) {
             return;
         }
 
-        td.data('editing', true);  // Set the editing flag to true
+        td.data('editing', true);  // set the editing flag to true
         td.text('');
         console.log(field);
         if(field == 'date'){
@@ -29,7 +29,7 @@ $(document).ready(function() {
         td.append(input);
         input.focus();
         input.blur(function() {
-            td.data('editing', false);  // Clear the editing flag
+            td.data('editing', false);  // clear the editing flag
             var newValue = input.val();
             if (newValue === oldValue) {
                 td.text(oldValue);
