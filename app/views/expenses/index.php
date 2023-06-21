@@ -23,8 +23,8 @@
             <tr>
                 <td><?= $expense->id ?></td>
                 <td><?= $category->name ?></td>
-                <td><?php if($expense->vendor) echo($expense->vendor->name); ?></td>
-                <td><?php if($expense->account) echo($expense->account->name); ?></td>
+                <td><?php if($expense->vendor) echo($expense->vendor->name); else echo('-');?></td>
+                <td><?php if($expense->account) echo($expense->account->name); else echo('-');?></td>
                 <td><?= $expense->amount ?></td>
                 <td><?= $expense->date ?></td>
             </tr>

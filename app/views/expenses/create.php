@@ -34,21 +34,22 @@
 
     <!-- Expense Form -->
     <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
-        <label for="category_name">Category:</label>
-        <select name="category_name" id="category_name">
+        <label for="expense_category_name">Category:</label>
+        <select name="category_name" id="expense_category_name">
+            <option value=""></option>
             <?php foreach($data['categories'] as $category) { ?>
                 <option value="<?= $category->name; ?>"><?= $category->name; ?></option>
             <?php } ?>
         </select>
-        <label for="vendor_name">Vendor:</label>
-        <select name="vendor_name" id="vendor_name">
+        <label for="expense_vendor_name">Vendor:</label>
+        <select name="vendor_name" id="expense_vendor_name">
             <option value=""></option>
             <?php foreach($data['vendors'] as $vendor) { ?>
                 <option value="<?= $vendor->name; ?>"><?= $vendor->name; ?></option>
             <?php } ?>
         </select>
-        <label for="account_name">Account:</label>
-        <select name="account_name" id="account_name">
+        <label for="expense_account_name">Account:</label>
+        <select name="account_name" id="expense_account_name">
             <option value=""></option>
             <?php foreach($data['accounts'] as $account) { ?>
                 <option value="<?= $account->name; ?>"><?= $account->name; ?></option>
@@ -65,6 +66,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
+    <script src="/js/update_dropdown.js" type="text/javascript"></script>
     
 
 </body>

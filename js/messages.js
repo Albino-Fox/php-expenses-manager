@@ -21,7 +21,6 @@ function handleFormSubmission($form) {
                     $(messageId).text(response.message).removeClass('error').addClass('success');
 
                     // Additional redirect functional
-                    console.log(pathArray);
                     //maybe use switch case?
                     if (pathArray[0] === 'login') { //as on login page no other 'success' messages
                         window.location.href = '/home';

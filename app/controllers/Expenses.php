@@ -142,4 +142,22 @@ class Expenses extends Controller
         }
     }
 
+    public function getCategories(){
+        $user_id = $_SESSION['user_id'];
+        $categories = Category::where('user_id', $user_id)->get();
+        echo(json_encode($categories));
+    }
+
+    public function getVendors(){
+        $user_id = $_SESSION['user_id'];
+        $vendors = Vendor::where('user_id', $user_id)->get();
+        echo(json_encode($vendors));
+    }
+    
+    public function getAccounts(){
+        $user_id = $_SESSION['user_id'];
+        $accounts = Account::where('user_id', $user_id)->get();
+        echo(json_encode($accounts));
+    }
+
 }
