@@ -51,7 +51,7 @@ class Register extends Controller
             if ($user->wasRecentlyCreated) {
                 $this->createDefaultCategories($user->id);
                 $this->createDefaultAccounts($user->id);
-                return $this->createMsg('success', 'User created: ' . $login);
+                return $this->createMsg('success', '');
             } else {
                 return $this->createMsg('error', 'User already exists: ' . $login);
             }
