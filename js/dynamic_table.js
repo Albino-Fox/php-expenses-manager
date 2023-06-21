@@ -18,33 +18,46 @@ $(document).ready(function() {
         td.data('editing', true);  // set the editing flag to true
         td.text('');
         let input = $('<input type="text">');
+        
+        // check if the field is date, create a date input and initialize datepicker on it
         if(field == 'date'){
-            input = $('<input type="text" id="datepicker" name="selected_date">');
+            input = $('<input type="text" name="selected_date">');
+            input.datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            }).on('hide', function(e) {
+                updateCell(td, input, oldValue, expenseId, field); // update the cell when a date is selected
+            });
+        } else {
+            input.blur(function() {
+                updateCell(td, input, oldValue, expenseId, field); // update the cell on blur for other inputs
+            });
         }
         input.val(oldValue);
         td.append(input);
         input.focus();
-        input.blur(function() {
-            td.data('editing', false);  // clear the editing flag
-            let newValue = input.val();
-            if (newValue === oldValue) {
-                td.text(oldValue);
-            } else {
-                $.post('/expenses/update', {
-                    expense_id: expenseId,
-                    field: field,
-                    value: newValue
-                })
-                .done(function() {
-                    td.text(newValue);
-                    td.data('old-value', newValue);
-                })
-                .fail(function() {
-                    td.text(oldValue);
-                });
-            }
-        });
     });
+
+    function updateCell(td, input, oldValue, expenseId, field) {
+        td.data('editing', false);  // clear the editing flag
+        let newValue = input.val();
+        if (newValue === oldValue) {
+            td.text(oldValue);
+        } else {
+            $.post('/expenses/update', {
+                expense_id: expenseId,
+                field: field,
+                value: newValue
+            })
+            .done(function() {
+                td.text(newValue);
+                td.data('old-value', newValue);
+            })
+            .fail(function() {
+                td.text(oldValue);
+            });
+        }
+    }
 
     $('#select-all').change(function() {
         $('.select-expense').prop('checked', $(this).prop('checked'));
@@ -73,4 +86,3 @@ $(document).ready(function() {
         }
     });
 });
-
