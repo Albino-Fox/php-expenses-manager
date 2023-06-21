@@ -24,7 +24,10 @@ $(document).ready(function() {
             input = $('<input type="text" name="selected_date">');
             input.datepicker({
                 format: 'yyyy-mm-dd',
-                autoclose: true
+                autoclose: true,
+                todayHighlight: false,
+                language: 'ru',
+                weekStart: 1
             }).on('hide', function(e) {
                 updateCell(td, input, oldValue, expenseId, field); // update the cell when a date is selected
             });
