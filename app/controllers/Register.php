@@ -13,30 +13,48 @@ class Register extends Controller
     public function createUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'];
-            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-            // $email = $_POST['email'];
-    
-            $existingUser = User::where('login', $login)->first();
-            if ($existingUser) {
-                return $this->createMsg('error', 'User with this login already exists');
+            $password = $_POST['password'];
+
+            $login = rtrim(trim(strip_tags($login)));
+            $password = rtrim(trim(strip_tags($password)));
+
+            if (!isset($login[0]) || !isset($password[0])) {
+                return $this->createMsg('error', 'Please fill in all fields');
+            }
+
+            if (strlen($login) < 4 || strlen($login) > 32) {
+                return $this->createMsg('error', 'Login must be between 4 and 30 characters');
+            }
+            
+            if (!preg_match('/^[a-zA-Z0-9_]+$/', $login)) {
+                return $this->createMsg('error', 'Login must only contain letters, numbers and \'_\' character');
             }
     
-            // if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            //     return $this->createMsg('error', 'Invalid email format');
-            // }
+            if (strlen($password) < 8) {
+                return $this->createMsg('error', 'Password must be at least 8 characters');
+            }
+
+            if (!preg_match('/^(\d+|[a-zA-Z0-9\!\@\#\$\%\^\&\*]+)$/', $password)) {
+                return $this->createMsg('error', 'Password must contain only latin letters, numbers and special characters (!@#$%^&*?)');
+            }
+
+
+            $password = password_hash($password, PASSWORD_DEFAULT);
     
 
-            $user = new User;
-            $new_user = $user->create([
-                'login' => $login,
-                'password' => $password,
-                // 'email' => $email
+            $user = User::firstOrNew([
+                'login' => $login
             ]);
+            $user->password = $password;
+            $user->save();
             
-            $this->createDefaultCategories($new_user->id);
-            $this->createDefaultAccounts($new_user->id);
-
-            return $this->createMsg('success', 'User created: ' . $login);
+            if ($user->wasRecentlyCreated) {
+                $this->createDefaultCategories($user->id);
+                $this->createDefaultAccounts($user->id);
+                return $this->createMsg('success', 'User created: ' . $login);
+            } else {
+                return $this->createMsg('error', 'User already exists: ' . $login);
+            }
         }
     }
     

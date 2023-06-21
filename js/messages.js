@@ -1,5 +1,5 @@
 function handleFormSubmission($form) {
-    var messageId = '#' + $form.data('response');
+    let messageId = '#' + $form.data('response');
 
     if (!$(messageId).length) {
         $form.after('<div id="' + messageId.replace('#', '') + '"></div>');
@@ -8,7 +8,8 @@ function handleFormSubmission($form) {
     $form.on('submit', function(e) {
         e.preventDefault();
 
-        var path = window.location.pathname;
+        let path = window.location.pathname;
+        let pathArray = path.split('/').filter(Boolean);
 
         $.ajax({
             url: $(this).attr('action'),
@@ -20,11 +21,11 @@ function handleFormSubmission($form) {
                     $(messageId).text(response.message).removeClass('error').addClass('success');
 
                     // Additional redirect functional
-                    console.log(path);
+                    console.log(pathArray);
                     //maybe use switch case?
-                    if (path === '/login') { //as on login page no other 'success' messages
+                    if (pathArray[0] === 'login') { //as on login page no other 'success' messages
                         window.location.href = '/home';
-                    } else if (path === '/register'){
+                    } else if (pathArray[0] === 'register'){  //as on login page no other 'success' messages
                         window.location.href = '/login';
                     }
                 } else {

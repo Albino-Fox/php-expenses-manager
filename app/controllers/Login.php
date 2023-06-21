@@ -9,13 +9,16 @@ class Login extends Controller
         }
         $this->view('login/index');
     }
-
+    
     public function loginUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'];
             $password = $_POST['password'];
             
-            if (empty($login) || empty($password)) {
+            $login = rtrim(trim($login));
+            $password = rtrim(trim($password));
+
+            if (!isset($login[0]) || !isset($password[0])) {
                 return $this->createMsg('error', 'Please fill in all fields');
             }
     
