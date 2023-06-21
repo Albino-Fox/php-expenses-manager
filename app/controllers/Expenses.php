@@ -166,14 +166,14 @@ class Expenses extends Controller
         $field = $_POST['field'];
         $value = $_POST['value'];
 
-        // Validate the new value
+        // validate the new value
         if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
             http_response_code(400);
             echo 'Invalid amount';
             return;
         }
 
-        // Validate the date
+        // validate the date
         if ($field === 'date') {
             $date = DateTime::createFromFormat('Y-m-d', $value);
 
