@@ -166,8 +166,8 @@ class Expenses extends Controller
         $field = $_POST['field'];
         $value = $_POST['value'];
 
-        // validate the new value
-        if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
+        // validate the amount
+        if ($field === 'amount' && !is_numeric($value)) {
             http_response_code(400);
             echo 'Invalid amount';
             return;

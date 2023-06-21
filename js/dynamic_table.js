@@ -17,7 +17,6 @@ $(document).ready(function() {
 
         td.data('editing', true);  // set the editing flag to true
         td.text('');
-        console.log(field);
         if(field == 'date'){
             var input = $('<input type="text" id="datepicker" name="selected_date">');
         }
