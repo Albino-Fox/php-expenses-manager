@@ -44,7 +44,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
     <script src="/js/dynamic_table.js"></script>
-    <script src="/js/calculate_amounts.js"></script>
 
 </body>
 </html>

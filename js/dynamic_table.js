@@ -5,10 +5,10 @@ $(document).ready(function() {
     });
 
     $('.editable').click(function() {
-        var td = $(this);
-        var oldValue = td.data('old-value');
-        var expenseId = td.data('expense-id');
-        var field = td.data('field');
+        let td = $(this);
+        let oldValue = td.data('old-value');
+        let expenseId = td.data('expense-id');
+        let field = td.data('field');
 
         // if the cell is being edited, don't trigger the click event
         if (td.data('editing')) {
@@ -17,19 +17,16 @@ $(document).ready(function() {
 
         td.data('editing', true);  // set the editing flag to true
         td.text('');
+        let input = $('<input type="text">');
         if(field == 'date'){
-            var input = $('<input type="text" id="datepicker" name="selected_date">');
+            input = $('<input type="text" id="datepicker" name="selected_date">');
         }
-        else {
-            var input = $('<input type="text">');
-        }
-        
         input.val(oldValue);
         td.append(input);
         input.focus();
         input.blur(function() {
             td.data('editing', false);  // clear the editing flag
-            var newValue = input.val();
+            let newValue = input.val();
             if (newValue === oldValue) {
                 td.text(oldValue);
             } else {
@@ -54,7 +51,7 @@ $(document).ready(function() {
     });
 
     $('#delete-selected').click(function() {
-        var selectedIds = [];
+        let selectedIds = [];
         $('.select-expense:checked').each(function() {
             selectedIds.push($(this).data('expense-id'));
         });
