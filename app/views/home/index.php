@@ -7,8 +7,8 @@
     <title>Home</title>
 </head>
 <body>
+    <!--NAVBAR_PLACEHOLDER-->
     <div><p>Welcome to the home page of personal expenses tracker app!</p></div>
-    
     <!--SCRIPTS_PLACEHOLDER-->
 </body>
 </html>

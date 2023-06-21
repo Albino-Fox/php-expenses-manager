@@ -29,14 +29,21 @@ class Controller
         require_once 'app/views/' . $view . '.php';
         $output = ob_get_clean();
 
+        ob_start();
         require_once 'app/views/partials/jslinks.php';
         $scripts = ob_get_clean();
 
+        ob_start();
         require_once 'app/views/partials/navbar.php';
         $navbar = ob_get_clean();
 
-        $output = str_replace('<!--NAVBAR_PLACEHOLDER-->', $navbar, $output);
-        $output = str_replace('<!--SCRIPTS_PLACEHOLDER-->', $scripts, $output);
+        if (strpos($output, '<!--NAVBAR_PLACEHOLDER-->') !== false) {
+            $output = str_replace('<!--NAVBAR_PLACEHOLDER-->', $navbar, $output);
+        }
+    
+        if (strpos($output, '<!--SCRIPTS_PLACEHOLDER-->') !== false) {
+            $output = str_replace('<!--SCRIPTS_PLACEHOLDER-->', $scripts, $output);
+        }
 
         echo $output;
     }
