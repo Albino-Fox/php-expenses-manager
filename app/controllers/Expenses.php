@@ -198,4 +198,16 @@ class Expenses extends Controller
 
         echo 'Expense updated';
     }
+
+    public function deleteSelected(){
+        $ids = $_POST['ids'];
+        foreach ($ids as $id) {
+            $expense = Expense::find($id);
+            if ($expense) {
+                $expense->delete();
+            }
+        }
+        echo 'Expenses deleted';
+    }
+    
 }

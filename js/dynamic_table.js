@@ -49,5 +49,32 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('#select-all').change(function() {
+        $('.select-expense').prop('checked', $(this).prop('checked'));
+    });
+
+    $('#delete-selected').click(function() {
+        var selectedIds = [];
+        $('.select-expense:checked').each(function() {
+            selectedIds.push($(this).data('expense-id'));
+        });
+
+        if (selectedIds.length > 0) {
+            if (confirm('Are you sure you want to delete the selected expenses?')) { // rewrite in future?
+                $.post('/expenses/deleteSelected', {
+                    ids: selectedIds
+                })
+                .done(function() {
+                    location.reload();
+                })
+                .fail(function() {
+                    alert('Failed to delete expenses'); // rewrite in future?
+                });
+            }
+        } else {
+            alert('Please select at least one expense to delete'); // rewrite in future?
+        }
+    });
 });
 

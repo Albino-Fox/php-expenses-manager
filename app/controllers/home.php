@@ -11,7 +11,7 @@ class Home extends Controller
             $expenses = Expense::where('user_id', $_SESSION['user_id'])->get();
             $this->view('expenses/index', ['expenses' => $expenses]);
         } else {
-            echo "You need to login to view expenses";
+            $this->createMsg('error', 'You need to login to view expenses');
         }
     }  
 }

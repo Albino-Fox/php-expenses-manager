@@ -10,8 +10,10 @@
 <body>
     <!--NAVBAR_PLACEHOLDER-->
     <h2>Your Expenses</h2>
+    <button id="delete-selected" class="btn btn-danger">Delete selected</button>
     <table>
         <tr>
+            <th><input type="checkbox" id="select-all"></th>
             <th>ID</th>
             <th>Category name</th>
             <th>Vendor</th>
@@ -23,6 +25,7 @@
             $category = Category::find($expense->category_id);
         ?>
             <tr>
+                <td><input type="checkbox" class="select-expense" data-expense-id="<?= $expense->id ?>"></td>
                 <td><?= $expense->id ?></td>                
                 <td class="" data-expense-id="<?= $expense->id ?>" data-field="category" data-old-value="<?= $category->name ?>"><?= $category->name ?></td>
                 <td class="" data-expense-id="<?= $expense->id ?>" data-field="vendor" data-old-value="<?php if($expense->vendor) echo($expense->vendor->name);?>"><?php if($expense->vendor) echo($expense->vendor->name);?></td>
