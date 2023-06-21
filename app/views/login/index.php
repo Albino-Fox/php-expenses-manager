@@ -6,11 +6,14 @@
     <title>Login</title>
 </head>
 <body>
+    <!--NAVBAR_PLACEHOLDER-->
     <h2>Login</h2>
-    <form action="login/loginUser" method="post">
+    <form action="login/loginUser" method="post" data-response="loginMsg">
         <input type="text" name="login" placeholder="Login">
         <input type="password" name="password" placeholder="Password">
         <button type="submit">Login</button>
     </form>
+
+    <!--SCRIPTS_PLACEHOLDER-->
 </body>
 </html>
