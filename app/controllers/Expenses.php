@@ -32,7 +32,6 @@ class Expenses extends Controller
     }
     
     public function createExpense() {
-        $response = [];
 
         $user_id = $_SESSION['user_id'];
 

@@ -21,12 +21,16 @@ function handleFormSubmission($form) {
                     $(messageId).text(response.message).removeClass('error').addClass('success');
 
                     // additional redirect functional
-                    //maybe use switch case?
-                    if (pathArray[0] === 'login') { //as on login page no other 'success' messages
-                        window.location.href = '/home';
-                    } else if (pathArray[0] === 'register'){  //as on login page no other 'success' messages
-                        window.location.href = '/login';
-                    }
+                    switch (pathArray[0]) {
+                        case 'login':
+                          // as on login page no other 'success' messages
+                          window.location.href = '/home';
+                          break;
+                        case 'register':
+                          // as on login page no other 'success' messages
+                          window.location.href = '/login';
+                          break;
+                      }
                 } else {
                     // display error message
                     $(messageId).text(response.message).removeClass('success').addClass('error');
