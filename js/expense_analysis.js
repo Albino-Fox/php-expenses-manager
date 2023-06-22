@@ -1,3 +1,5 @@
+//maybe rewrite this functionality
+
 $(document).ready(function() {
     window.updateExpenseAnalysis = function() {
         let totalIncome = 0;

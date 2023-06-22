@@ -11,9 +11,26 @@ class Expenses extends Controller
         
         $user_id = $_SESSION['user_id'];
         $expenses = Expense::where('user_id', $user_id)->with('vendor')->with('account')->get();
-        $this->view('expenses/index', ['expenses' => $expenses]);
+        
+        $incomeAmount = 0;
+        $expenseAmount = 0;
+        
+        foreach ($expenses as $expense) {
+            if ($expense->type === 'I') {
+                $incomeAmount += $expense->amount;
+            } else {
+                $expenseAmount += $expense->amount;
+            }
+        }
+        
+        $difference = $incomeAmount - $expenseAmount;
+        
+        $this->view('expenses/index', ['expenses' => $expenses, 
+        'incomeAmount' => $incomeAmount,
+        'expenseAmount' => $expenseAmount,
+        'difference' => $difference]);
     }
-
+    
     public function createExpense() {
         $response = [];
 
@@ -203,6 +220,10 @@ class Expenses extends Controller
         if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
             http_response_code(400);
             return $this->createMsg('error', 'Invalid amount');
+        }
+        if ($value > PHP_INT_MAX) {
+            http_response_code(400);
+            return $this->createMsg('error', 'Amount is too big');
         }
 
         // validate the date
