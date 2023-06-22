@@ -55,13 +55,14 @@ $(document).ready(function() {
             .done(function() {
                 td.text(newValue);
                 td.data('old-value', newValue);
+                updateExpenseAnalysis();  // update the analysis from expense_analysis.js after the cell value has been updated
             })
             .fail(function() {
                 td.text(oldValue);
             });
         }
     }
-
+    
     $('#select-all').change(function() {
         $('.select-expense').prop('checked', $(this).prop('checked'));
     });
