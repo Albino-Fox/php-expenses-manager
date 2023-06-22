@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="/expenses/createExpense">Add Expense</a></li>
+                <li class="nav-item"><a class="nav-link" href="/expenses/createExpense">Set Expenses</a></li>
                 <li class="nav-item"><a class="nav-link" href="/expenses">View Expenses</a></li>
             </ul>
             <ul class="navbar-nav ms-auto">

@@ -191,6 +191,9 @@ class Expenses extends Controller
         }
     }
 
+
+
+
     public function getCategories(){
         $user_id = $_SESSION['user_id'];
         $categories = Category::where('user_id', $user_id)->get();
@@ -208,6 +211,7 @@ class Expenses extends Controller
         $accounts = Account::where('user_id', $user_id)->get();
         $this->sendJson($accounts);
     }
+
 
 
 
@@ -274,6 +278,31 @@ class Expenses extends Controller
         $this->sendJson(['status' => 'success']);
     }
     
+
+
+
+    public function editCategories() {
+        $this->editItem('Category');
+    }
+    
+    public function editVendors() {
+        $this->editItem('Vendor');
+    }
+    
+    public function editAccounts() {
+        $this->editItem('Account');
+    }
+    
+    private function editItem($modelClass) {
+        $id = $_POST['id'];
+        $name = $_POST['name'];
+    
+        $item = $modelClass::find($id);
+        if ($item) {
+            $item->name = $name;
+            $item->save();
+        }
+    }    
 
 
 
