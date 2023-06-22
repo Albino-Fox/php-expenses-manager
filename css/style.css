@@ -1,0 +1,6 @@
+.navbar-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px; /* Adjust the max-width to your desired limit */
+  }
