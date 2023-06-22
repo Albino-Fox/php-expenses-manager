@@ -297,6 +297,8 @@ class Expenses extends Controller
         $id = $_POST['id'];
         $name = $_POST['name'];
     
+        //validation maybe?
+
         $item = $modelClass::find($id);
         if ($item) {
             $item->name = $name;
