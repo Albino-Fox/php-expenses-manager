@@ -44,17 +44,18 @@
             $counter = 1 ?>
     </table>
     <div id="analysis">
+        <h3>Analysis</h3>
         <p>Total income: <span id="total-income"></span></p>
         <p>Total expenses: <span id="total-expenses"></span></p>
         <p>Budget: <span id="difference"></span></p>
     </div>
-
-    <div id="analysis-container">
+    
+    <!-- <div id="analysis-container">
         <h3>Analysis</h3>
         <p>Income Amount: <?php echo $data['incomeAmount']; ?></p>
         <p>Expense Amount: <?php echo $data['expenseAmount']; ?></p>
         <p>Difference: <?php echo $data['difference']; ?></p>
-    </div>
+    </div> -->
 
 
     <!--SCRIPTS_PLACEHOLDER-->
