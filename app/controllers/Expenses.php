@@ -209,6 +209,74 @@ class Expenses extends Controller
         $this->sendJson($accounts);
     }
 
+
+
+    public function deleteCategories() {
+        if(!isset($_POST['categories'])){
+            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
+            return;
+        }
+        $categoryIds = $_POST['categories'];
+
+        $userId = $_SESSION['user_id'];
+        $categories = Category::where('user_id', $userId)
+                              ->whereIn('id', $categoryIds)
+                              ->get();
+    
+        foreach ($categories as $category) {
+            if ($category->expense()->count() == 0) {
+                $category->delete();
+            } else {$this->sendJson(['status' => 'error', 'category_name' => $category->name, 'message' => 'has dependencies']);}
+        }
+    
+        $this->sendJson(['status' => 'success']);
+    }
+
+    public function deleteAccounts() {
+        if(!isset($_POST['accounts'])){
+            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
+            return;
+        }
+        $accountIds = $_POST['accounts'];
+
+        $userId = $_SESSION['user_id'];
+        $accounts = Account::where('user_id', $userId)
+                              ->whereIn('id', $accountIds)
+                              ->get();
+    
+        foreach ($accounts as $account) {
+            if ($account->expense()->count() == 0) {
+                $account->delete();
+            } else {$this->sendJson(['status' => 'error', 'account_name' => $account->name, 'message' => 'has dependencies']);}
+        }
+    
+        $this->sendJson(['status' => 'success']);
+    }
+
+    public function deleteVendors() {
+        if(!isset($_POST['vendors'])){
+            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
+            return;
+        }
+        $vendorIds = $_POST['vendors'];
+
+        $userId = $_SESSION['user_id'];
+        $vendors = Vendor::where('user_id', $userId)
+                              ->whereIn('id', $vendorIds)
+                              ->get();
+    
+        foreach ($vendors as $vendor) {
+            if ($vendor->expense()->count() == 0) {
+                $vendor->delete();
+            } else {$this->sendJson(['status' => 'error', 'vendor_name' => $vendor->name, 'message' => 'has dependencies']);}
+        }
+    
+        $this->sendJson(['status' => 'success']);
+    }
+    
+
+
+
     public function update()
     {
         $expenseId = $_POST['expense_id'];

@@ -9,7 +9,7 @@ class Account extends Eloquent
     protected $fillable = ['name', 'user_id'];
     public $timestamps = false;
 
-    public function expenses()
+    public function expense()
     {
         return $this->hasMany('Expense');
     }

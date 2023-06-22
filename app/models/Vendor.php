@@ -9,7 +9,7 @@ class Vendor extends Eloquent
     public $timestamps = false;
     protected $fillable = ['name', 'user_id'];
     
-    public function expenses()
+    public function expense()
     {
         return $this->hasMany('Expense');
     }

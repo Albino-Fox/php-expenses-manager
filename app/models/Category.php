@@ -8,4 +8,10 @@ class Category extends Eloquent
     protected $primaryKey = 'id';
     protected $fillable = ['name', 'user_id'];
     public $timestamps = false;
+
+    public function expense()
+    {
+        return $this->hasMany('Expense');
+    }
+
 }
