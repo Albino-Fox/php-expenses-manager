@@ -328,13 +328,64 @@ class Expenses extends Controller
     
         $userId = $_SESSION['user_id'];
         $expenseId = $_POST['id'];
-        $categoryId = Category::where('user_id', $userId)->where('name', $_POST['category'])->first()->id;
-        $vendorId = Vendor::where('user_id', $userId)->where('name', $_POST['vendor'])->first()->id;
-        $accountId = Account::where('user_id', $userId)->where('name', $_POST['account'])->first()->id;
+
+        
+        
+        $categoryId = null;
+        $category = Category::where('user_id', $userId)->where('name', $_POST['category'])->first();
+        if ($category) {
+            $categoryId = $category->id;
+        } else {
+            $this->sendJson(['status' => 'error', 'message' => 'category not found']);
+            return;
+        }
+
+        $vendorId = null;
+        if (isset($_POST['vendor']) && $_POST['vendor'] != '') {
+            $vendor = Vendor::where('user_id', $userId)->where('name', $_POST['vendor'])->first();
+            if ($vendor) {
+                $vendorId = $vendor->id;
+            } else {
+                $this->sendJson(['status' => 'error', 'message' => 'vendor not found']);
+                return;
+            }
+        }
+
+        $accountId = null;
+        if (isset($_POST['account']) && $_POST['account'] != '') {
+            $account = Account::where('user_id', $userId)->where('name', $_POST['account'])->first();
+            if ($account) {
+                $accountId = $account->id;
+            } else {
+                $this->sendJson(['status' => 'error', 'message' => 'account not found']);
+                return;
+            }
+        }
+
+
         $amount = $_POST['amount'];
         $type = $_POST['type'];
-        $date = $_POST['date'];
+        $selected_date = $_POST['date'];
         
+        //date validation (??)
+        if(!isset($selected_date[0])){
+            return $this->createMsg('error', 'Date is empty');
+        }
+
+        $selected_date = DateTime::createFromFormat('Y-m-d', $selected_date);
+
+        if ($selected_date === false) {
+            return $this->createMsg('error', 'Invalid date format');
+        }
+
+        $errors = DateTime::getLastErrors();
+
+        if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
+            return $this->createMsg('error', 'Invalid date');
+        }
+        //end of date validation
+
+
         // Check if the expense exists and belongs to the user
         $expense = Expense::where('user_id', $userId)
                           ->where('id', $expenseId)
@@ -349,19 +400,11 @@ class Expenses extends Controller
         $expense->category_id = $categoryId;
         $expense->amount = $amount;
         $expense->type = $type;
-        $expense->date = $date;
+        $expense->date = $selected_date;
     
         // Check if vendor and account are set and update them if they are
-        if (!isset($_POST['vendor'])) {
-            $expense->vendor_id = null;
-        } else {
-            $expense->vendor_id = $vendorId;
-        }
-        if (isset($_POST['account'])) {
-            $expense->account_id = null;
-        } else {
-            $expense->account_id = $accountId;
-        }
+        $expense->vendor_id = $vendorId;
+        $expense->account_id = $accountId;
     
         // Save the changes
         $expense->save();

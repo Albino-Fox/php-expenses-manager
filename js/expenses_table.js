@@ -46,11 +46,55 @@ $(document).ready(function() {
         $('#editExpenseType').val(rowData[7]);
         $('#editExpenseDate').val(rowData[8]);
 
+         // Fetch categories
+        $.ajax({
+            url: '/expenses/getCategories',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#editExpenseCategory').empty();
+                data.forEach(function(category) {
+                    $('#editExpenseCategory').append(new Option(category.name, category.id));
+                });
+                $('#editExpenseCategory').val(rowData[3]);
+            }
+        });
+
+        // Fetch vendors
+        $.ajax({
+            url: '/expenses/getVendors',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#editExpenseVendor').empty();
+                data.forEach(function(vendor) {
+                    $('#editExpenseVendor').append(new Option(vendor.name, vendor.id));
+                });
+                $('#editExpenseVendor').val(rowData[4]);
+            }
+        });
+
+        // Fetch accounts
+        $.ajax({
+            url: '/expenses/getAccounts',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                $('#editExpenseAccount').empty();
+                data.forEach(function(account) {
+                    $('#editExpenseAccount').append(new Option(account.name, account.id));
+                });
+                $('#editExpenseAccount').val(rowData[5]);
+            }
+        });
+            
         // store the id of the expense being edited
         $('#editExpenseForm').data('id', rowData[2]);
 
         // show the modal
         $('#editExpenseModal').modal('show');
+
+        
     });
 
 
@@ -67,9 +111,9 @@ $(document).ready(function() {
             type: 'POST',
             data: {
                 id: expenseId,
-                category: $('#editExpenseCategory').val(),
-                vendor: $('#editExpenseVendor').val(),
-                account: $('#editExpenseAccount').val(),
+                category: $('#editExpenseCategory option:selected').text(),
+                vendor: $('#editExpenseVendor option:selected').text(),
+                account: $('#editExpenseAccount option:selected').text(),
                 amount: $('#editExpenseAmount').val(),
                 type: $('#editExpenseType').val(),
                 date: $('#editExpenseDate').val()
@@ -116,6 +160,13 @@ $(document).ready(function() {
 
     $('#saveChanges').click(function() {
         $('#editExpenseForm').submit();
+    });
+
+    $('#editExpenseDate').datepicker({
+        format: 'mm/dd/yyyy',
+        autoclose: true,
+        language: 'ru',
+        todayHighlight: false
     });
 });
 

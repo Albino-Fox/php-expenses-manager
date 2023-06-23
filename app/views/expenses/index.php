@@ -79,15 +79,15 @@
                 <form id="editExpenseForm">
                 <div class="form-group">
                     <label for="editExpenseCategory">Category</label>
-                    <input type="text" class="form-control" id="editExpenseCategory" name="category">
+                    <select class="form-control" id="editExpenseCategory" name="category"></select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseVendor">Vendor</label>
-                    <input type="text" class="form-control" id="editExpenseVendor" name="vendor">
+                    <select class="form-control" id="editExpenseVendor" name="vendor"></select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseAccount">Account</label>
-                    <input type="text" class="form-control" id="editExpenseAccount" name="account">
+                    <select class="form-control" id="editExpenseAccount" name="account"></select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseAmount">Amount</label>
@@ -95,7 +95,10 @@
                 </div>
                 <div class="form-group">
                     <label for="editExpenseType">Type</label>
-                    <input type="text" class="form-control" id="editExpenseType" name="type">
+                    <select class="form-control" id="editExpenseType" name="type">
+                        <option value="E">E</option>
+                        <option value="I">I</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseDate">Date</label>
@@ -132,7 +135,6 @@
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
     <script src="/js/expense_analysis.js"></script>
-    <script src="/js/dynamic_table.js"></script>
     <script src="/js/expenses_table.js"></script>
 
 
