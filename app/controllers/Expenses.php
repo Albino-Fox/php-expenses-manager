@@ -212,7 +212,17 @@ class Expenses extends Controller
         $this->sendJson($accounts);
     }
 
-
+    public function getExpenses() {
+        $user_id = $_SESSION['user_id'];
+        $expenses = Expense::where('user_id', $user_id)
+            ->with('vendor')
+            ->with('account')
+            ->with('category')
+            ->get();
+    
+        $this->sendJson($expenses);
+    }
+    
 
 
     public function deleteCategories() {
@@ -308,45 +318,78 @@ class Expenses extends Controller
 
 
 
-    public function update()
-    {
-        $expenseId = $_POST['expense_id'];
-        $field = $_POST['field'];
-        $value = $_POST['value'];
+    public function updateExpense() {
+        // Check if all required parameters are set
 
-        // validate the amount
-        if ($field === 'amount' && (!is_numeric($value) || $value <= 0)) {
-            http_response_code(400);
-            return $this->createMsg('error', 'Invalid amount');
+        if (!isset($_POST['id'], $_POST['category'], $_POST['amount'], $_POST['type'], $_POST['date'])) {
+            $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
+            return;
         }
-        if ($value > PHP_INT_MAX) {
-            http_response_code(400);
-            return $this->createMsg('error', 'Amount is too big');
+    
+        $userId = $_SESSION['user_id'];
+        $expenseId = $_POST['id'];
+        $categoryId = Category::where('user_id', $userId)->where('name', $_POST['category'])->first()->id;
+        $vendorId = Vendor::where('user_id', $userId)->where('name', $_POST['vendor'])->first()->id;
+        $accountId = Account::where('user_id', $userId)->where('name', $_POST['account'])->first()->id;
+        $amount = $_POST['amount'];
+        $type = $_POST['type'];
+        $date = $_POST['date'];
+        
+        // Check if the expense exists and belongs to the user
+        $expense = Expense::where('user_id', $userId)
+                          ->where('id', $expenseId)
+                          ->first();
+    
+        if (!$expense) {
+            $this->sendJson(['status' => 'error', 'message' => 'expense not found']);
+            return;
         }
-
-        // validate the date
-        if ($field === 'date') {
-            $date = DateTime::createFromFormat('Y-m-d', $value);
-
-            if ($date === false) {
-                http_response_code(400);
-                return $this->createMsg('error', 'Invalid date format');
-            }
-
-            $errors = DateTime::getLastErrors();
-
-            if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
-                http_response_code(400);
-                return $this->createMsg('error', 'Invalid date');
-            }
+    
+        // Update the expense
+        $expense->category_id = $categoryId;
+        $expense->amount = $amount;
+        $expense->type = $type;
+        $expense->date = $date;
+    
+        // Check if vendor and account are set and update them if they are
+        if (!isset($_POST['vendor'])) {
+            $expense->vendor_id = null;
+        } else {
+            $expense->vendor_id = $vendorId;
         }
-
-        $expense = Expense::find($expenseId);
-        $expense->$field = $value;
+        if (isset($_POST['account'])) {
+            $expense->account_id = null;
+        } else {
+            $expense->account_id = $accountId;
+        }
+    
+        // Save the changes
         $expense->save();
-
-        return $this->createMsg('success', 'Expense updated');
+    
+        $this->sendJson(['status' => 'success']);
     }
+    
+    public function deleteExpense() {
+        if (!isset($_POST['id'])) {
+            $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
+            return;
+        }
+    
+        $userId = $_SESSION['user_id'];
+        $expenseId = $_POST['id'];
+    
+        $expense = Expense::where('user_id', $userId)->where('id', $expenseId)->first();
+    
+        if (!$expense) {
+            $this->sendJson(['status' => 'error', 'message' => 'expense not found']);
+            return;
+        }
+    
+        $expense->delete();
+    
+        $this->sendJson(['status' => 'success']);
+    }
+    
 
     public function deleteSelected(){
         $ids = $_POST['ids'];

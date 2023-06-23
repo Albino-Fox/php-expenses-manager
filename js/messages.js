@@ -1,6 +1,6 @@
 function handleFormSubmission($form) {
     let messageId = '#' + $form.data('response');
-    let timerId; // Timer ID for clearTimeout
+    let timerId; // timer ID for clearTimeout
   
     if (!$(messageId).length) {
       $form.after('<div id="' + messageId.replace('#', '') + '"></div>');
@@ -33,7 +33,7 @@ function handleFormSubmission($form) {
                 break;
             }
   
-            // Reset the timer if a new message appears
+            // reset the timer if a new message appears
             clearTimeout(timerId);
             timerId = setTimeout(function() {
               $(messageId).text('').removeClass('success');
