@@ -5,7 +5,11 @@ $(document).ready(function() {
         'account': 'accounts'
     };
 
-    let table = $('#expensesTable').DataTable();
+    let table = $('#expensesTable').DataTable({
+        columnDefs: [
+            { targets: [1, 9], orderable: false }
+        ]
+    });
 
     function recreateTable(data){
         table.clear().draw();
