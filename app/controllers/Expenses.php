@@ -325,7 +325,17 @@ class Expenses extends Controller
             $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
             return;
         }
-    
+        
+        $amount = $_POST['amount'];
+        if (!isset($amount[0])) {
+                return $this->createMsg('error', 'Amount is empty');
+            }
+
+        if (!is_numeric($amount) || $amount <= 0) {
+            return $this->createMsg('error', 'Amount is incorrect');
+        }
+
+
         $userId = $_SESSION['user_id'];
         $expenseId = $_POST['id'];
 
@@ -363,7 +373,6 @@ class Expenses extends Controller
         }
 
 
-        $amount = $_POST['amount'];
         $type = $_POST['type'];
         $selected_date = $_POST['date'];
         
@@ -384,7 +393,6 @@ class Expenses extends Controller
             return $this->createMsg('error', 'Invalid date');
         }
         //end of date validation
-
 
         // Check if the expense exists and belongs to the user
         $expense = Expense::where('user_id', $userId)
