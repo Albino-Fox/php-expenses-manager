@@ -190,7 +190,7 @@
         <label for="amount">Amount:</label>
         <input type="text" id="amount" name="amount">
         <label for="date">Date:</label>
-        <input type="text" id="datepicker" name="selected_date" value="<?= date('Y-m-d'); ?>">
+        <input type="text" class="datepicker" name="selected_date" value="<?= date('Y-m-d'); ?>">
         <input type="submit" value="Create Expense">
     </form>
 

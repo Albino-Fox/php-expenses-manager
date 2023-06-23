@@ -1,4 +1,10 @@
 $(document).ready(function() {
+    const endpoints = {
+        'category': 'categories',
+        'vendor': 'vendors',
+        'account': 'accounts'
+    };
+
     let table = $('#expensesTable').DataTable();
 
     function recreateTable(data){
@@ -32,69 +38,51 @@ $(document).ready(function() {
         }        
     });
 
+    function populateSelect(type, currentText) {
+        // fetch the data from the server
+        $.ajax({
+            url: `/expenses/get${capitalize(endpoints[type])}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                // populate the select list
+                let selectElement = $(`#editExpense${capitalize(type)}`);
+                selectElement.empty();
+                if (type === 'vendor' || type === 'account') {
+                    selectElement.append($('<option>').val('').text(''));
+                }
+                $.each(data, function (i, item) {
+                    selectElement.append($('<option>').val(item.id).text(item.name));
+                });
+    
+                // set the selected option
+                selectElement.find(`option:contains(${currentText})`).attr('selected', 'selected');
+            }
+        });
+    }
+    
 
 
     // wire up the edit buttons
     $('#expensesTable').on('click', '.edit-expense', function() {
         let rowData = table.row($(this).parents('tr')).data();
         
-        // populate the form with the current values
-        $('#editExpenseCategory').val(rowData[3]);
-        $('#editExpenseVendor').val(rowData[4]);
-        $('#editExpenseAccount').val(rowData[5]);
-        $('#editExpenseAmount').val(rowData[6]);
-        $('#editExpenseType').val(rowData[7]);
-        $('#editExpenseDate').val(rowData[8]);
-
-         // Fetch categories
-        $.ajax({
-            url: '/expenses/getCategories',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#editExpenseCategory').empty();
-                data.forEach(function(category) {
-                    $('#editExpenseCategory').append(new Option(category.name, category.id));
-                });
-                $('#editExpenseCategory').val(rowData[3]);
-            }
-        });
-
-        // Fetch vendors
-        $.ajax({
-            url: '/expenses/getVendors',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#editExpenseVendor').empty();
-                data.forEach(function(vendor) {
-                    $('#editExpenseVendor').append(new Option(vendor.name, vendor.id));
-                });
-                $('#editExpenseVendor').val(rowData[4]);
-            }
-        });
-
-        // Fetch accounts
-        $.ajax({
-            url: '/expenses/getAccounts',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                $('#editExpenseAccount').empty();
-                data.forEach(function(account) {
-                    $('#editExpenseAccount').append(new Option(account.name, account.id));
-                });
-                $('#editExpenseAccount').val(rowData[5]);
-            }
-        });
-            
         // store the id of the expense being edited
         $('#editExpenseForm').data('id', rowData[2]);
 
         // show the modal
         $('#editExpenseModal').modal('show');
 
-        
+        // populate the form with the current values
+        $('#editExpenseAmount').val(rowData[6]);
+        $('#editExpenseType').val(rowData[7]);
+        $('#editExpenseDate').val(rowData[8]);
+
+        // populate and auto-select the category, vendor, and account
+        populateSelect('category', rowData[3]);
+        populateSelect('vendor', rowData[4]);
+        populateSelect('account', rowData[5]);
+
     });
 
 
@@ -162,11 +150,8 @@ $(document).ready(function() {
         $('#editExpenseForm').submit();
     });
 
-    $('#editExpenseDate').datepicker({
-        format: 'mm/dd/yyyy',
-        autoclose: true,
-        language: 'ru',
-        todayHighlight: false
-    });
+    function capitalize(str) {
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
 });
 

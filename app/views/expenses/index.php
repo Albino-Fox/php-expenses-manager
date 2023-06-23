@@ -79,11 +79,15 @@
                 <form id="editExpenseForm">
                 <div class="form-group">
                     <label for="editExpenseCategory">Category</label>
-                    <select class="form-control" id="editExpenseCategory" name="category"></select>
+                    <select class="form-control" id="editExpenseCategory" name="category">
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseVendor">Vendor</label>
-                    <select class="form-control" id="editExpenseVendor" name="vendor"></select>
+                    <select class="form-control" id="editExpenseVendor" name="vendor">
+                        <option value=""></option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="editExpenseAccount">Account</label>
@@ -102,7 +106,7 @@
                 </div>
                 <div class="form-group">
                     <label for="editExpenseDate">Date</label>
-                    <input type="text" class="form-control" id="editExpenseDate" name="date">
+                    <input type="text" class="form-control datepicker" id="editExpenseDate" name="date">
                 </div>
                 </form>
             </div>
@@ -113,21 +117,13 @@
             </div>
         </div>
     </div>
-
-
-    <div id="analysis">
-        <h3>Analysis</h3>
-        <p>Total income: <span id="total-income"></span></p>
-        <p>Total expenses: <span id="total-expenses"></span></p>
-        <p>Budget: <span id="difference"></span></p>
-    </div>
     
-    <!-- <div id="analysis-container">
+    <div id="analysis-container">
         <h3>Analysis</h3>
         <p>Income Amount: <?php echo $data['incomeAmount']; ?></p>
         <p>Expense Amount: <?php echo $data['expenseAmount']; ?></p>
         <p>Difference: <?php echo $data['difference']; ?></p>
-    </div> -->
+    </div>
 
 
     <!--SCRIPTS_PLACEHOLDER-->
