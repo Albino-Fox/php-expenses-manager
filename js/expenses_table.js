@@ -33,7 +33,7 @@ $(document).ready(function() {
         }
     }
 
-    $.ajax({
+    $.ajax({ 
         url: '/expenses/getExpenses',
         type: 'GET',
         dataType: 'json',
