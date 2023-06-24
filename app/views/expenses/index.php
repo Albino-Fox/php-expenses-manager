@@ -71,13 +71,13 @@
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="editExpenseVendor">Продавец</label>
+                    <label for="editExpenseVendor">Продавец (опцинонально)</label>
                     <select class="form-control" id="editExpenseVendor" name="vendor">
                         <option value=""></option>
                     </select>
                 </div>
                 <div class="form-group mb-3">
-                    <label for="editExpenseAccount">Счёт</label>
+                    <label for="editExpenseAccount">Счёт (опцинонально)</label>
                     <select class="form-control" id="editExpenseAccount" name="account"></select>
                 </div>
                 <div class="form-group mb-3">
@@ -96,7 +96,7 @@
                     <input type="text" class="form-control datepicker" id="editExpenseDate" name="date">
                 </div>
                 <div class="form-group mb-3">
-                    <label for="editExpenseComment">Комментарий</label>
+                    <label for="editExpenseComment">Комментарий (опцинонально)</label>
                     <input type="text" class="form-control" id="editExpenseComment" name="comment">
                 </div>
                 </form>

@@ -215,35 +215,26 @@
                         <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
                             <label for="expense_category_name" class="form-label">Категория:</label>
                             <select name="category_name" id="expense_category_name" class="form-select">
-                                <option value=""></option>
-                                <?php foreach($data['categories'] as $category) { ?>
-                                    <option value="<?= $category->name; ?>"><?= $category->name; ?></option>
-                                <?php } ?>
+                                <!-- filled by JS -->
                             </select>
                             <label for="expense_type_name" class="form-label mt-2">Тип:</label>
                             <select name="expense_type" id="expense_type_name" class="form-select">
                                 <option value="E">Расход</option>
                                 <option value="I">Доход</option>
                             </select>
-                            <label for="expense_vendor_name" class="form-label mt-2">Продавец:</label>
+                            <label for="expense_vendor_name" class="form-label mt-2">Продавец (опцинонально):</label>
                             <select name="vendor_name" id="expense_vendor_name" class="form-select">
-                                <option value=""></option>
-                                <?php foreach($data['vendors'] as $vendor) { ?>
-                                    <option value="<?= $vendor->name; ?>"><?= $vendor->name; ?></option>
-                                <?php } ?>
-                                </select>
-                            <label for="expense_account_name" class="form-label mt-2">Счет:</label>
+                                <!-- filled by JS -->
+                            </select>
+                            <label for="expense_account_name" class="form-label mt-2">Счет (опцинонально):</label>
                             <select name="account_name" id="expense_account_name" class="form-select">
-                                <option value=""></option>
-                                <?php foreach($data['accounts'] as $account) { ?>
-                                    <option value="<?= $account->name; ?>"><?= $account->name; ?></option>
-                                <?php } ?>
+                                <!-- filled by JS -->
                             </select>
                             <label for="amount" class="form-label mt-2">Сумма:</label>
                             <input type="text" id="amount" name="amount" class="form-control">
                             <label for="date" class="form-label mt-2">Дата:</label>
                             <input type="text" class="datepicker form-control" name="selected_date" value="<?= date('Y-m-d'); ?>">
-                            <label for="comment" class="form-label mt-2">Комментарий:</label>
+                            <label for="comment" class="form-label mt-2">Комментарий (опцинонально):</label>
                             <input type="text" id="comment" name="comment" class="form-control">
                             <input type="submit" value="Записать транзакцию" class="btn btn-primary mt-4">
                         </form>
