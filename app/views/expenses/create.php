@@ -17,12 +17,12 @@
             <!-- Category Form -->
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-header">Создать категорию</div>
+                    <div class="card-header">Добавить категорию</div>
                     <div class="card-body">
                         <form id="create_category_form" method="POST" action="/expenses/createCategory" data-response="categoryMsg">
                             <label for="category_name" class="form-label">Название категории:</label>
                             <input type="text" id="category_name" name="category_name" class="form-control">
-                            <input type="submit" value="Создать категорию" class="btn btn-primary mt-2">
+                            <input type="submit" value="Добавить категорию" class="btn btn-primary mt-2">
                         </form>
                     </div>
                 </div>
@@ -31,12 +31,12 @@
             <!-- Vendor Form -->
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-header">Создать продавца</div>
+                    <div class="card-header">Добавить продавца</div>
                     <div class="card-body">
                         <form id="create_vendor_form" method="POST" action="/expenses/createVendor" data-response="vendorMsg">
                             <label for="vendor_name" class="form-label">Название продавца:</label>
                             <input type="text" id="vendor_name" name="vendor_name" class="form-control">
-                            <input type="submit" value="Создать продавца" class="btn btn-primary mt-2">
+                            <input type="submit" value="Добавить продавца" class="btn btn-primary mt-2">
                         </form>
                     </div>
                 </div>
@@ -45,12 +45,12 @@
             <!-- Account Form -->
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-header">Создать счет</div>
+                    <div class="card-header">Добавить счет</div>
                     <div class="card-body">
                         <form id="create_account_form" method="POST" action="/expenses/createAccount" data-response="accountMsg">
                             <label for="account_name" class="form-label">Название счета:</label>
                             <input type="text" id="account_name" name="account_name" class="form-control">
-                            <input type="submit" value="Создать счет" class="btn btn-primary mt-2">
+                            <input type="submit" value="Добавить счет" class="btn btn-primary mt-2">
                         </form>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
             <table id="categoryTable" class="table table-striped">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Action</th>
                 </tr>
@@ -133,7 +133,7 @@
             <table id="vendorTable" class="table table-striped">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Action</th>
                 </tr>
@@ -162,7 +162,7 @@
             <table id="accountTable" class="table table-striped">
             <thead>
                 <tr>
-                <th scope="col">#</th>
+                <th scope="col"></th>
                 <th scope="col">Name</th>
                 <th scope="col">Action</th>
                 </tr>
@@ -220,8 +220,8 @@
                             </select>
                             <label for="expense_type_name" class="form-label mt-2">Тип:</label>
                             <select name="expense_type" id="expense_type_name" class="form-select">
-                                <option value="E">Expense</option>
-                                <option value="I">Income</option>
+                                <option value="E">Расход</option>
+                                <option value="I">Доход</option>
                             </select>
                             <label for="expense_vendor_name" class="form-label mt-2">Продавец:</label>
                             <select name="vendor_name" id="expense_vendor_name" class="form-select">

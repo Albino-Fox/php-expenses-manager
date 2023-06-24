@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/home">Главная</a></li>
-                <li class="nav-item"><a class="nav-link" href="/expenses/createExpense">Создать транзакцию</a></li>
+                <li class="nav-item"><a class="nav-link" href="/expenses/createExpense">Добавить транзакцию</a></li>
                 <li class="nav-item"><a class="nav-link" href="/expenses">Посмотреть транзакции</a></li>
             </ul>
             <ul class="navbar-nav ms-auto">
