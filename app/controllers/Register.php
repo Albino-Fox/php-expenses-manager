@@ -45,10 +45,10 @@ class Register extends Controller
             $user = User::firstOrNew([
                 'login' => $login
             ]);
-            $user->password = $password;
-            $user->save();
             
             if ($user->wasRecentlyCreated) {
+                $user->password = $password;
+                $user->save();
                 $this->createDefaultCategories($user->id);
                 $this->createDefaultAccounts($user->id);
                 return $this->createMsg('success', '');
