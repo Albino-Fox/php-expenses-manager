@@ -25,6 +25,13 @@ $(document).ready(function() {
             let vendorName = data[i].vendor ? data[i].vendor.name : 'N/A';
             let accountName = data[i].account ? data[i].account.name : 'N/A';
     
+            let typeName = '';
+            if(data[i].type == 'I'){
+                typeName = 'Доход';
+            } else {
+                typeName = 'Расход';
+            }
+
             table.row.add([
                 i+1,
                 '<input type="checkbox" class="select-expense" data-expense-id="' + data[i].id + '">',
@@ -33,7 +40,7 @@ $(document).ready(function() {
                 vendorName,
                 accountName,
                 data[i].amount,
-                data[i].type,
+                typeName,
                 data[i].date,
                 '<button type="button" class="btn btn-primary edit-expense" data-expense-id="' + data[i].id + '">Edit</button><button type="button" class="btn btn-danger delete-expense" data-expense-id="' + data[i].id + '">Delete</button>'
             ]).draw();
@@ -87,7 +94,12 @@ $(document).ready(function() {
 
         // populate the form with the current values
         $('#editExpenseAmount').val(rowData[6]);
-        $('#editExpenseType').val(rowData[7]);
+
+        if(rowData[7] == 'Доход'){
+            $('#editExpenseType').val('I');
+        } else if(rowData[7] == 'Расход'){
+            $('#editExpenseType').val('E');
+        }
         $('#editExpenseDate').val(rowData[8]);
 
         // populate and auto-select the category, vendor, and account
@@ -150,7 +162,7 @@ $(document).ready(function() {
                 response = JSON.parse(response);
                 if (response.status === 'success') {
                     // remove the row from the table
-                    table.row(deleteButton.parents('tr')).remove().draw();  // Use preserved context here
+                    table.row(deleteButton.parents('tr')).remove().draw();  // use preserved context here
                     updateAnalysis();
                 } else {
                     alert('Error: ' + response.message);
