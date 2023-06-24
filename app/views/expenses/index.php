@@ -14,7 +14,7 @@
     <div class="container mt-4">
         <div class="card">
             <div class="card-header text-center">
-                <h3>Ваши расходы</h3>
+                <h3>Ваши транзакции</h3>
             </div>
             <div class="card-body">
                 <table id="expensesTable" class="display">
@@ -23,9 +23,9 @@
                             <th>№</th>
                             <th><input type="checkbox" id="select-all"></th>
                             <th>ID</th>
-                            <th>Название категории</th>
+                            <th>Категория</th>
                             <th>Продавец</th>
-                            <th>Счет</th>
+                            <th>Счёт</th>
                             <th>Сумма</th>
                             <th>Тип</th>
                             <th>Дата</th>
@@ -57,47 +57,47 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Edit Expense</h5>
+                <h5 class="modal-title">Редактировать транзакцию</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="editExpenseForm">
-                <div class="form-group">
-                    <label for="editExpenseCategory">Category</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseCategory">Категория</label>
                     <select class="form-control" id="editExpenseCategory" name="category">
                         <option value=""></option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="editExpenseVendor">Vendor</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseVendor">Продавец</label>
                     <select class="form-control" id="editExpenseVendor" name="vendor">
                         <option value=""></option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="editExpenseAccount">Account</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseAccount">Счёт</label>
                     <select class="form-control" id="editExpenseAccount" name="account"></select>
                 </div>
-                <div class="form-group">
-                    <label for="editExpenseAmount">Amount</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseAmount">Сумма</label>
                     <input type="text" class="form-control" id="editExpenseAmount" name="amount">
                 </div>
-                <div class="form-group">
-                    <label for="editExpenseType">Type</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseType">Тип</label>
                     <select class="form-control" id="editExpenseType" name="type">
-                        <option value="E">E</option>
-                        <option value="I">I</option>
+                        <option value="E">Расход</option>
+                        <option value="I">Доход</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="editExpenseDate">Date</label>
+                <div class="form-group mb-3">
+                    <label for="editExpenseDate">Дата</label>
                     <input type="text" class="form-control datepicker" id="editExpenseDate" name="date">
                 </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveChanges">Save changes</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveChanges">Сохранить изменения</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
             </div>
             </div>
         </div>

@@ -13,6 +13,9 @@ $(document).ready(function() {
                 "className": "max-width-200 overflow-handle"
             }
         ],
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json'
+            }
     });
 
     function recreateTable(data){

@@ -96,7 +96,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="categoryModalLabel">Categories</h5>
+            <h5 class="modal-title" id="categoryModalLabel">Категории</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -104,8 +104,8 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
+                <th scope="col">Название</th>
+                <th scope="col">Действие</th>
                 </tr>
             </thead>
             <tbody>
@@ -114,8 +114,8 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedCategories">Delete Current Selected</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedCategories">Удалить выбранные</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
         </div>
         </div>
     </div>
@@ -126,7 +126,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="vendorModalLabel">Vendors</h5>
+            <h5 class="modal-title" id="vendorModalLabel">Продавцы</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -134,8 +134,8 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
+                <th scope="col">Название</th>
+                <th scope="col">Действие</th>
                 </tr>
             </thead>
             <tbody>
@@ -144,8 +144,8 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedVendors">Delete Current Selected</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedVendors">Удалить выбранные</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
         </div>
         </div>
     </div>
@@ -155,7 +155,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="accountModalLabel">Accounts</h5>
+            <h5 class="modal-title" id="accountModalLabel">Счета</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -163,8 +163,8 @@
             <thead>
                 <tr>
                 <th scope="col"></th>
-                <th scope="col">Name</th>
-                <th scope="col">Action</th>
+                <th scope="col">Название</th>
+                <th scope="col">Действие</th>
                 </tr>
             </thead>
             <tbody>
@@ -173,8 +173,8 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedAccounts">Delete Current Selected</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedAccounts">Удалить выбранные</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
         </div>
         </div>
     </div>
@@ -184,7 +184,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Edit</h5>
+                    <h5 class="modal-title">Редактировать</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
@@ -193,8 +193,8 @@
                     <input type="hidden" id="editType">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="saveEdit">Save</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveEdit">Сохранить</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </div>
         </div>
