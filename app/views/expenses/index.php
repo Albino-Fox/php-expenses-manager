@@ -13,38 +13,6 @@
     <!--NAVBAR_PLACEHOLDER-->
     <h2>Your Expenses</h2>
     <button id="delete-selected" class="btn btn-danger">Delete selected</button>
-    <!-- <table>
-        <tr>
-            <th>No.</th>
-            <th><input type="checkbox" id="select-all"></th>
-            <th>ID</th>
-            <th>Category name</th>
-            <th>Vendor</th>
-            <th>Account</th>
-            <th>Amount</th>
-            <th>Type</th>
-            <th>Date</th>
-        </tr>
-        <?php $counter = 0; 
-            foreach ($data['expenses'] as $expense): 
-            $counter++;
-            $category = Category::find($expense->category_id);
-        ?>
-            <tr>
-                <td class="expense-number"><?=$counter?></td>
-                <td><input type="checkbox" class="select-expense" data-expense-id="<?= $expense->id ?>"></td>
-                <td><?= $expense->id ?></td>                
-                <td class="" data-expense-id="<?= $expense->id ?>" data-field="category" data-old-value="<?= $category->name ?>"><?= $category->name ?></td>
-                <td class="" data-expense-id="<?= $expense->id ?>" data-field="vendor" data-old-value="<?php if($expense->vendor) echo($expense->vendor->name);?>"><?php if($expense->vendor) echo($expense->vendor->name);?></td>
-                <td class="" data-expense-id="<?= $expense->id ?>" data-field="account" data-old-value="<?php if($expense->account) echo($expense->account->name);?>"><?php if($expense->account) echo($expense->account->name);?></td>
-                <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="amount" data-old-value="<?= $expense->amount ?>"><?= $expense->amount ?></td>
-                <td class="" data-expense-id="<?= $expense->type ?>" data-field="type" data-old-value="<?= $expense->type ?>"><?= $expense->type ?></td>
-                <td class="editable" data-expense-id="<?= $expense->id ?>" data-field="date" data-old-value="<?= $expense->date ?>"><?= $expense->date ?></td>
-            </tr>
-        <?php endforeach;
-            $counter = 1 ?>
-    </table> -->
-
     <table id="expensesTable" class="display">
         <thead>
             <tr>
@@ -64,6 +32,7 @@
             <!-- Rows will be inserted here dynamically -->
         </tbody>
     </table>
+
 
     <!-- Edit Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="editExpenseModal">
@@ -116,17 +85,29 @@
         </div>
     </div>
     
+<!-- 
     <div id="analysis-container">
         <h3>Analysis</h3>
         <p>Income Amount: <?php echo $data['incomeAmount']; ?></p>
         <p>Expense Amount: <?php echo $data['expenseAmount']; ?></p>
         <p>Difference: <?php echo $data['difference']; ?></p>
+    </div> 
+-->
+
+    <button id="showAnalysisButton" class="btn btn-primary">Show analysis</button>
+    <div id="analysis-container">
+        <h3>Analysis</h3>
+        <div class="analysis-param">Total income: <span id="totalIncome">0</span>&#x20bd;</p>
+        <div class="analysis-param">Total expenses: <span id="totalExpenses">0</span>&#x20bd;</p>
+
+        <div class="analysis-param">Budget: <span id="totalDifference">0</span>&#x20bd;</p>
     </div>
 
 
     <!--SCRIPTS_PLACEHOLDER-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
     <script src="/js/expense_analysis.js"></script>
     <script src="/js/expenses_table.js"></script>

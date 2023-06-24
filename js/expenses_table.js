@@ -148,11 +148,50 @@ $(document).ready(function() {
             }
         });
     });
-    
 
     $('#saveChanges').click(function() {
         $('#editExpenseForm').submit();
     });
+
+    $('#select-all').change(function() {
+        $('.select-expense').prop('checked', $(this).prop('checked'));
+    });
+
+    $('#delete-selected').click(function() {
+        let selectedIds = [];
+        $('.select-expense:checked').each(function() {
+            selectedIds.push($(this).data('expense-id'));
+        });
+
+        if (selectedIds.length > 0) {
+            if (confirm('Are you sure you want to delete the selected expenses?')) {
+                $.ajax({
+                    url: '/expenses/deleteSelected',
+                    type: 'POST',
+                    data: {
+                        ids: selectedIds
+                    },
+                    success: function(response) {
+                        response = JSON.parse(response);
+                        if (response.status === 'success') {
+                            // remove the rows from the table
+                            $('.select-expense:checked').each(function() {
+                                table.row($(this).parents('tr')).remove().draw();
+                            });
+                        } else {
+                            alert('Error: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Failed to delete expenses');
+                    }
+                });
+            }
+        } else {
+            alert('Please select at least one expense to delete');
+        }
+    });
+
 
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);

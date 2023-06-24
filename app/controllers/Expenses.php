@@ -8,31 +8,13 @@ class Expenses extends Controller
     }
     
     public function index(){
-        
         $user_id = $_SESSION['user_id'];
         $expenses = Expense::where('user_id', $user_id)->with('vendor')->with('account')->get();
-        
-        $incomeAmount = 0;
-        $expenseAmount = 0;
-        
-        foreach ($expenses as $expense) {
-            if ($expense->type === 'I') {
-                $incomeAmount += $expense->amount;
-            } else {
-                $expenseAmount += $expense->amount;
-            }
-        }
-        
-        $difference = $incomeAmount - $expenseAmount;
-        
-        $this->view('expenses/index', ['expenses' => $expenses, 
-        'incomeAmount' => $incomeAmount,
-        'expenseAmount' => $expenseAmount,
-        'difference' => $difference]);
+    
+        $this->view('expenses/index', ['expenses' => $expenses]);
     }
     
     public function createExpense() {
-
         $user_id = $_SESSION['user_id'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -193,7 +175,6 @@ class Expenses extends Controller
 
 
 
-
     public function getCategories(){
         $user_id = $_SESSION['user_id'];
         $categories = Category::where('user_id', $user_id)->get();
@@ -222,7 +203,46 @@ class Expenses extends Controller
     
         $this->sendJson($expenses);
     }
+
     
+    
+    public function getExpensesInRange() {
+        if(!isset($_GET['start']) || !isset($_GET['end'])){
+            $this->sendJson(['status' => 'error', 'message' => 'start date and/or end date not provided.']);
+            return;
+        }
+    
+        $startDate = $_GET['start'];
+        $endDate = $_GET['end'];
+    
+        $userId = $_SESSION['user_id'];
+    
+        $expenses = Expense::where('user_id', $userId)
+            ->where('date', '>=', $startDate)
+            ->where('date', '<=', $endDate)
+            ->get();
+    
+        $this->sendJson($expenses->toArray());
+    }
+    
+    public function getExpensesAmountStats(){
+        $user_id = $_SESSION['user_id'];
+        $expenses = Expense::where('user_id', $user_id)->get();
+
+        $incomeAmount = 0;
+        $expenseAmount = 0;
+        
+        foreach ($expenses as $expense) {
+            if ($expense->type === 'I') {
+                $incomeAmount += $expense->amount;
+            } else {
+                $expenseAmount += $expense->amount;
+            }
+        }
+        
+        $this->sendJson(['income' => $incomeAmount, 'expenses' => $expenseAmount]);
+    }
+
 
 
     public function deleteCategories() {
@@ -319,7 +339,7 @@ class Expenses extends Controller
 
 
     public function updateExpense() {
-        // Check if all required parameters are set
+        // check if all required parameters are set
 
         if (!isset($_POST['id'], $_POST['category'], $_POST['amount'], $_POST['type'], $_POST['date'])) {
             $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
@@ -394,7 +414,7 @@ class Expenses extends Controller
         }
         //end of date validation
 
-        // Check if the expense exists and belongs to the user
+        // check if the expense exists and belongs to the user
         $expense = Expense::where('user_id', $userId)
                           ->where('id', $expenseId)
                           ->first();
@@ -404,17 +424,17 @@ class Expenses extends Controller
             return;
         }
     
-        // Update the expense
+        // update the expense
         $expense->category_id = $categoryId;
         $expense->amount = $amount;
         $expense->type = $type;
         $expense->date = $selected_date;
     
-        // Check if vendor and account are set and update them if they are
+        // check if vendor and account are set and update them if they are
         $expense->vendor_id = $vendorId;
         $expense->account_id = $accountId;
     
-        // Save the changes
+        // save the changes
         $expense->save();
     
         $this->sendJson(['status' => 'success']);
@@ -450,7 +470,7 @@ class Expenses extends Controller
                 $expense->delete();
             }
         }
-        return $this->createMsg('success', 'Expenses deleted');
+        return $this->sendJson(['status' => 'success', 'message' => 'expenses deleted']);
     }
     
 }
