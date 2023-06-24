@@ -69,7 +69,7 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedCategories">Delete Selected</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedCategories">Delete Current Selected</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
         </div>
@@ -99,7 +99,7 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedVendors">Delete Selected</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedVendors">Delete Current Selected</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
         </div>
@@ -128,7 +128,7 @@
             </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-danger" id="deleteSelectedAccounts">Delete Selected</button>
+            <button type="button" class="btn btn-danger" id="deleteSelectedAccounts">Delete Current Selected</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
         </div>

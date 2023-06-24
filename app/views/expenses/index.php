@@ -31,7 +31,7 @@
             <!-- Rows will be inserted here dynamically -->
         </tbody>
     </table>
-    <button id="delete-selected" class="btn btn-danger">Delete selected</button>
+    <button id="delete-selected" class="btn btn-danger">Delete current selected</button>
 
 
     <!-- Edit Modal -->
@@ -93,7 +93,7 @@
         <div class="analysis-param">Total income: <span id="totalIncome">0</span>&#x20bd;</p>
         <div class="analysis-param">Total expenses: <span id="totalExpenses">0</span>&#x20bd;</p>
 
-        <div class="analysis-param">Budget: <span id="totalDifference">0</span>&#x20bd;</p>
+        <div class="analysis-param">Balance: <span id="totalDifference">0</span>&#x20bd;</p>
     </div>
 
 
