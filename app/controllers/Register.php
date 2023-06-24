@@ -59,7 +59,7 @@ class Register extends Controller
     }
     
     public function createDefaultCategories($user_id){
-        $default_categories = ['Food', 'Rent', 'Entertainment', 'Car']; //expaand
+        $default_categories = ['Еда', 'Жильё', 'Развлечения', 'Машина'];
     
         foreach ($default_categories as $category_name) {
             $category = new Category;
@@ -71,7 +71,7 @@ class Register extends Controller
     }
 
     public function createDefaultAccounts($user_id){
-        $default_accounts = ['Cash', 'Checking', 'Savings', 'Visa']; //expaand
+        $default_accounts = ['Наличные', 'Копилка', 'Виза'];
     
         foreach ($default_accounts as $account_name) {
             $account = new Account;
