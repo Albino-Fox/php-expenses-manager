@@ -39,6 +39,7 @@ $(document).ready(function() {
         dataType: 'json',
         success: function (data) {
             recreateTable(data);
+            updateAnalysis();
         }        
     });
 
@@ -118,6 +119,7 @@ $(document).ready(function() {
                     dataType: 'json',
                     success: function (data) {
                         recreateTable(data);
+                        updateAnalysis();
                     }  
                 });
 
@@ -142,6 +144,7 @@ $(document).ready(function() {
                 if (response.status === 'success') {
                     // remove the row from the table
                     table.row(deleteButton.parents('tr')).remove().draw();  // Use preserved context here
+                    updateAnalysis();
                 } else {
                     alert('Error: ' + response.message);
                 }
@@ -178,6 +181,7 @@ $(document).ready(function() {
                             $('.select-expense:checked').each(function() {
                                 table.row($(this).parents('tr')).remove().draw();
                             });
+                            updateAnalysis();
                         } else {
                             alert('Error: ' + response.message);
                         }

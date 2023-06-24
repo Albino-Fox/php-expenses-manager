@@ -1,4 +1,4 @@
-$('#showAnalysisButton').click(function() {
+function updateAnalysis() {
     // get the selected start and end dates
     let startDate = $('#startDate').val();
     let endDate = $('#endDate').val();
@@ -22,4 +22,4 @@ $('#showAnalysisButton').click(function() {
             $('#totalDifference').text(totalDifference);
         }
     });
-});
+}

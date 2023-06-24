@@ -12,7 +12,6 @@
 <body>
     <!--NAVBAR_PLACEHOLDER-->
     <h2>Your Expenses</h2>
-    <button id="delete-selected" class="btn btn-danger">Delete selected</button>
     <table id="expensesTable" class="display">
         <thead>
             <tr>
@@ -32,6 +31,7 @@
             <!-- Rows will be inserted here dynamically -->
         </tbody>
     </table>
+    <button id="delete-selected" class="btn btn-danger">Delete selected</button>
 
 
     <!-- Edit Modal -->
@@ -84,17 +84,10 @@
             </div>
         </div>
     </div>
-    
-<!-- 
-    <div id="analysis-container">
-        <h3>Analysis</h3>
-        <p>Income Amount: <?php echo $data['incomeAmount']; ?></p>
-        <p>Expense Amount: <?php echo $data['expenseAmount']; ?></p>
-        <p>Difference: <?php echo $data['difference']; ?></p>
-    </div> 
--->
 
-    <button id="showAnalysisButton" class="btn btn-primary">Show analysis</button>
+    </br>
+    </br>
+
     <div id="analysis-container">
         <h3>Analysis</h3>
         <div class="analysis-param">Total income: <span id="totalIncome">0</span>&#x20bd;</p>
