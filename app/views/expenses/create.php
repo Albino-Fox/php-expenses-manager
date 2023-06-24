@@ -208,7 +208,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">Создать расход</div>
+                    <div class="card-header">Записать транзакцию</div>
                     <div class="card-body">
                         <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
                             <label for="expense_category_name" class="form-label">Категория:</label>
