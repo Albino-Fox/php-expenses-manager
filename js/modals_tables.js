@@ -12,12 +12,18 @@ $(document).ready(function() {
     function setupModal(type) {
         let plural = pluralMap[type];
         let table = $('#' + type + 'Table').DataTable({
+            autoWidth: false,
             columnDefs: [
-                { targets: [0, 2], orderable: false },
+                { targets: [0, 2], orderable: false, "className": "center-text vertical-center"},
                 {
                     "targets": "_all",
-                    "className": "max-width-200 overflow-handle"
+                    "className": "max-width-200 overflow-handle vertical-center"
                 }
+            ],
+            columns: [
+                { width: "5%" }, // width for the first column
+                {}, // width for the second column
+                { width: "10%" }  // width for the third column
             ],
             language: {
                 url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json'
@@ -39,8 +45,8 @@ $(document).ready(function() {
                         table.row.add([
                             '<input type="checkbox" class="select-' + type + '" value="' + data[i].id + '">',
                             data[i].name,
-                            '<button type="button" class="btn btn-danger delete-' + type + '" data-id="' + data[i].id + '">Delete</button>' +
-                            '<button type="button" class="btn btn-primary edit-' + type + '" data-id="' + data[i].id + '" data-name="' + data[i].name + '">Edit</button>'
+                            '<button type="button" class="btn btn-primary edit-' + type + '" data-id="' + data[i].id + '" data-name="' + data[i].name + '">' + '<i class="fas fa-pencil-alt"></i>' + '</button>' +
+                            '<button type="button" class="btn btn-danger delete-' + type + '" data-id="' + data[i].id + '">' + '<i class="fas fa-trash"></i>' + '</button>'
                         ]).draw();
                         
                     }

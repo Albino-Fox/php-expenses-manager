@@ -14,3 +14,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.center-text {
+  text-align: center;
+}
+
+.vertical-center {
+  vertical-align: middle !important;
+}

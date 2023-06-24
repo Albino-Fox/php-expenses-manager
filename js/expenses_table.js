@@ -7,10 +7,12 @@ $(document).ready(function() {
 
     let table = $('#expensesTable').DataTable({
         columnDefs: [
-            { targets: [1, 9], orderable: false },
+            { targets: [1, 9], orderable: false, width: '5%', className: 'center-text vertical-center'},
+            { targets: [0], width: '5%', className: 'center-text vertical-center'},
+            { targets: [9], width: '10%', className: 'center-text vertical-center'},
             {
                 "targets": "_all",
-                "className": "max-width-200 overflow-handle"
+                "className": "max-width-200 overflow-handle vertical-center"
             }
         ],
             language: {
@@ -28,7 +30,7 @@ $(document).ready(function() {
             let typeName = '';
             if(data[i].type == 'I'){
                 typeName = 'Доход';
-            } else {
+            } else if(data[i].type == 'E'){
                 typeName = 'Расход';
             }
 
@@ -42,7 +44,7 @@ $(document).ready(function() {
                 data[i].amount,
                 typeName,
                 data[i].date,
-                '<button type="button" class="btn btn-primary edit-expense" data-expense-id="' + data[i].id + '">Edit</button><button type="button" class="btn btn-danger delete-expense" data-expense-id="' + data[i].id + '">Delete</button>'
+                '<button type="button" class="btn btn-primary edit-expense" data-expense-id="' + data[i].id + '"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btn btn-danger delete-expense" data-expense-id="' + data[i].id + '"><i class="fas fa-trash"></i></button>'
             ]).draw();
         }
     }
