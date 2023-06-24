@@ -11,7 +11,16 @@ $(document).ready(function() {
 
     function setupModal(type) {
         let plural = pluralMap[type];
-        let table = $('#' + type + 'Table').DataTable();
+        let table = $('#' + type + 'Table').DataTable({
+            columnDefs: [
+                { targets: [0, 2], orderable: false },
+                {
+                    "targets": "_all",
+                    "className": "max-width-200 overflow-handle"
+                }
+            ],
+        });
+    
 
         $('#' + type + 'Modal').on('show.bs.modal', function (event) {
             $.ajax({

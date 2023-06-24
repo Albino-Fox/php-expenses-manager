@@ -7,8 +7,12 @@ $(document).ready(function() {
 
     let table = $('#expensesTable').DataTable({
         columnDefs: [
-            { targets: [1, 9], orderable: false }
-        ]
+            { targets: [1, 9], orderable: false },
+            {
+                "targets": "_all",
+                "className": "max-width-200 overflow-handle"
+            }
+        ],
     });
 
     function recreateTable(data){

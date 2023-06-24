@@ -2,5 +2,15 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 250px; /* Adjust the max-width to your desired limit */
+    max-width: 250px;
   }
+
+.max-width-200{
+  max-width: 200px;
+}
+
+.overflow-handle{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
