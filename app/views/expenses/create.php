@@ -62,24 +62,24 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header">Просмотр данных</div>
+                    <div class="card-header">Просмотр и редактирование данных</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
                                 <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#categoryModal">
-                                    Просмотреть категории
+                                    Редактировать категории
                                 </button>
                             </div>
 
                             <div class="col">
                                 <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#vendorModal">
-                                    Просмотреть продавцов
+                                    Редактировать продавцов
                                 </button>
                             </div>
 
                             <div class="col">
                                 <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#accountModal">
-                                    Просмотреть счета
+                                    Редактировать счета
                                 </button>
                             </div>
                         </div>
@@ -241,7 +241,7 @@
                             <input type="text" id="amount" name="amount" class="form-control">
                             <label for="date" class="form-label mt-2">Дата:</label>
                             <input type="text" class="datepicker form-control" name="selected_date" value="<?= date('Y-m-d'); ?>">
-                            <input type="submit" value="Создать расход" class="btn btn-primary mt-4">
+                            <input type="submit" value="Записать транзакцию" class="btn btn-primary mt-4">
                         </form>
                     </div>
                 </div>
