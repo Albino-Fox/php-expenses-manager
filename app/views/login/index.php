@@ -9,31 +9,33 @@
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="card">
+            <div class="col-md-8 col-lg-6">
+                <div class="card mt-5">
+                    <div class="card-header text-center">
+                        <h2>Вход</h2>
+                    </div>
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Вход</h2>
                         <form action="login/loginUser" method="post" data-response="loginMsg">
                             <div class="mb-3">
                                 <label for="login" class="form-label">Логин</label>
-                                <input type="text" class="form-control" id="login" name="login" placeholder="Введите логин">
+                                <input type="text" placeholder="Логин" name="login" class="form-control">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Пароль</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Введите пароль">
+                                <input type="password"  placeholder="Пароль" name="password" class="form-control">
                             </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Войти</button>
+                            <div class="mb-3 text-center">
+                                <button type="submit" class="btn btn-primary w-100">Войти</button>
                             </div>
                         </form>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <!--SCRIPTS_PLACEHOLDER-->
 </body>
 </html>

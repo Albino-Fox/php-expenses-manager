@@ -7,32 +7,50 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Expenses</title>
+    <title>Транзакции</title>
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
-    <h2>Your Expenses</h2>
-    <table id="expensesTable" class="display">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th><input type="checkbox" id="select-all"></th>
-                <th>ID</th>
-                <th>Category name</th>
-                <th>Vendor</th>
-                <th>Account</th>
-                <th>Amount</th>
-                <th>Type</th>
-                <th>Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Rows will be inserted here dynamically -->
-        </tbody>
-    </table>
-    <button id="delete-selected" class="btn btn-danger">Delete current selected</button>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-header text-center">
+                <h3>Ваши расходы</h3>
+            </div>
+            <div class="card-body">
+                <table id="expensesTable" class="display">
+                    <thead>
+                        <tr>
+                            <th>№</th>
+                            <th><input type="checkbox" id="select-all"></th>
+                            <th>ID</th>
+                            <th>Название категории</th>
+                            <th>Продавец</th>
+                            <th>Счет</th>
+                            <th>Сумма</th>
+                            <th>Тип</th>
+                            <th>Дата</th>
+                            <th>Действие</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be inserted here dynamically -->
+                    </tbody>
+                </table>
+                <button id="delete-selected" class="btn btn-danger">Удалить выбранное</button>
+            </div>
+        </div>
 
+        <div class="card mt-4">
+            <div class="card-header">
+                <h4>Анализ</h4>
+            </div>
+            <div class="card-body">
+                <div class="analysis-param">Общий доход: <span id="totalIncome">0</span>&#x20bd;</div>
+                <div class="analysis-param">Общий расход: <span id="totalExpenses">0</span>&#x20bd;</div>
+                <div class="analysis-param">Баланс: <span id="totalDifference">0</span>&#x20bd;</div>
+            </div>
+        </div>
+    </div>
 
     <!-- Edit Modal -->
     <div class="modal" tabindex="-1" role="dialog" id="editExpenseModal">
@@ -88,13 +106,6 @@
     </br>
     </br>
 
-    <div id="analysis-container">
-        <h3>Analysis</h3>
-        <div class="analysis-param">Total income: <span id="totalIncome">0</span>&#x20bd;</p>
-        <div class="analysis-param">Total expenses: <span id="totalExpenses">0</span>&#x20bd;</p>
-
-        <div class="analysis-param">Balance: <span id="totalDifference">0</span>&#x20bd;</p>
-    </div>
 
 
     <!--SCRIPTS_PLACEHOLDER-->
