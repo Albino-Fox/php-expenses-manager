@@ -24,56 +24,61 @@ class Expenses extends Controller
             $vendor_name = trim($_POST['vendor_name']);
             $account_name = trim($_POST['account_name']);
             $selected_date = trim($_POST['selected_date']);
+            $comment = trim($_POST['comment']);
 
+            if (!isset($category_name[0])) {
+                return $this->createMsg('error', 'Категория не установлена');
+            }
+
+            if (!isset($amount[0])) {
+                return $this->createMsg('error', 'Сумма не установлена');
+            }
+
+            if (!is_numeric($amount) || $amount <= 0) {
+                return $this->createMsg('error', 'Сумма некорректна');
+            }
 
             //date validation - do i need this here?
             if(!isset($selected_date[0])){
-                return $this->createMsg('error', 'Date is empty');
+                return $this->createMsg('error', 'Дата не установлена');
             }
 
             $selected_date = DateTime::createFromFormat('Y-m-d', $selected_date);
 
             if ($selected_date === false) {
-                return $this->createMsg('error', 'Invalid date format');
+                return $this->createMsg('error', 'Неподходящий формат даты');
             }
 
             $errors = DateTime::getLastErrors();
 
             if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
-                return $this->createMsg('error', 'Invalid date');
+                return $this->createMsg('error', 'Неправильная дата');
             }
             //end of date validation
     
-            if (!isset($amount[0])) {
-                return $this->createMsg('error', 'Amount is empty');
-            }
-
-            if (!is_numeric($amount) || $amount <= 0) {
-                return $this->createMsg('error', 'Amount is incorrect');
-            }
 
             if (!isset($expense_type[0])) {
-                return $this->createMsg('error', 'Expense type is empty');
+                return $this->createMsg('error', 'Тип транзакции не установлен');
             }
             
             if (!ctype_alpha($expense_type)) {
-                return $this->createMsg('error', 'Expense type is incorrect');
+                return $this->createMsg('error', 'Тип транзакции некорректен');
             }
 
             if (strlen($expense_type) != 1) {
-                return $this->createMsg('error', 'Expense type must be (1) in length');
+                return $this->createMsg('error', 'Тип транзакции должен быть (1) в длину');
             }
     
             $category = Category::where('name', $category_name)->first();
             if (!$category) {
-                return $this->createMsg('error', 'Category not found');
+                return $this->createMsg('error', 'Категория не найдена');
             }
     
             $vendor_id = null;
             if(isset(trim($vendor_name)[0])) {
                 $vendor = Vendor::where('name', $vendor_name)->first();
                 if (!$vendor) {
-                    return $this->createMsg('error', 'Vendor not found');
+                    return $this->createMsg('error', 'Продавец не найден');
                 }
                 $vendor_id = $vendor->id;
             } 
@@ -82,7 +87,7 @@ class Expenses extends Controller
             if(isset(trim($account_name)[0])) {
                 $account = Account::where('name', $account_name)->first();
                 if (!$account) {
-                    return $this->createMsg('error', 'Account not found');
+                    return $this->createMsg('error', 'Счёт не найден');
                 }
                 $account_id = $account->id;
             } 
@@ -95,9 +100,10 @@ class Expenses extends Controller
                 'account_id' => $account_id,
                 'amount' => $amount,
                 'type' => $expense_type,
-                'date' => $selected_date
+                'date' => $selected_date,
+                'comment' => $comment
             ]);
-            return $this->createMsg('success', 'Expense created: ' . $amount);
+            return $this->createMsg('success', 'Успех! Транзакция записана');
         } else {
             $categories = Category::where('user_id', $user_id)->get();
             $vendors = Vendor::where('user_id', $user_id)->get();
@@ -112,7 +118,7 @@ class Expenses extends Controller
             $category_name = $_POST['category_name'];
     
             if(!isset(trim($category_name)[0])){
-                return $this->createMsg('error', 'Category name is empty');
+                return $this->createMsg('error', 'Имя категории не установлено');
             }
 
             $category = Category::firstOrCreate([
@@ -121,9 +127,9 @@ class Expenses extends Controller
             ]);
             
             if ($category->wasRecentlyCreated) {
-                return $this->createMsg('success', 'Category created: ' . $category_name);
+                return $this->createMsg('success', 'Категория добавлена: ' . $category_name);
             } else {
-                return $this->createMsg('error', 'Category already exists: ' . $category_name);
+                return $this->createMsg('error', 'Категория уже существует: ' . $category_name);
             }
         }
     }
@@ -134,7 +140,7 @@ class Expenses extends Controller
             $user_id = $_SESSION['user_id'];
             
             if(!isset(trim($vendor_name)[0])){
-                return $this->createMsg('error', 'Vendor name is empty');
+                return $this->createMsg('error', 'Название продавца не установлено');
             }
 
             $vendor = Vendor::firstOrCreate([
@@ -143,9 +149,9 @@ class Expenses extends Controller
             ]);
             
             if ($vendor->wasRecentlyCreated) {
-                return $this->createMsg('success', 'Vendor created: ' . $vendor_name);
+                return $this->createMsg('success', 'Продавец добавлен: ' . $vendor_name);
             } else {
-                return $this->createMsg('error', 'Vendor already exists: ' . $vendor_name);
+                return $this->createMsg('error', 'Продавец уже существует: ' . $vendor_name);
             }
         }
     }
@@ -157,7 +163,7 @@ class Expenses extends Controller
             $user_id = $_SESSION['user_id'];
             
             if(!isset(trim($account_name)[0])){
-                return $this->createMsg('error', 'Account name is empty');
+                return $this->createMsg('error', 'Название счёта не установлено');
             }
 
             $account = Account::firstOrCreate([
@@ -166,9 +172,9 @@ class Expenses extends Controller
             ]);
             
             if ($account->wasRecentlyCreated) {
-                return $this->createMsg('success', 'Account created: ' . $account_name);
+                return $this->createMsg('success', 'Счёт добавлен: ' . $account_name);
             } else {
-                return $this->createMsg('error', 'Account already exists: ' . $account_name);
+                return $this->createMsg('error', 'Счёт уже существует: ' . $account_name);
             }
         }
     }
@@ -208,8 +214,7 @@ class Expenses extends Controller
     
     public function getExpensesInRange() {
         if(!isset($_GET['start']) || !isset($_GET['end'])){
-            $this->sendJson(['status' => 'error', 'message' => 'start date and/or end date not provided.']);
-            return;
+            return $this->createMsg('error', 'start date and/or end date not provided');
         }
     
         $startDate = $_GET['start'];
@@ -247,8 +252,7 @@ class Expenses extends Controller
 
     public function deleteCategories() {
         if(!isset($_POST['categories'])){
-            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
-            return;
+            return $this->createMsg('error', 'no selected items');
         }
         $categoryIds = $_POST['categories'];
 
@@ -263,13 +267,12 @@ class Expenses extends Controller
             } else {$this->sendJson(['status' => 'error', 'category_name' => $category->name, 'message' => 'has dependencies']);}
         }
     
-        $this->sendJson(['status' => 'success']);
+        $this->createMsg('success', 'Категории удалены');
     }
 
     public function deleteAccounts() {
         if(!isset($_POST['accounts'])){
-            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
-            return;
+            return $this->createMsg('error', 'no selected items');
         }
         $accountIds = $_POST['accounts'];
 
@@ -284,13 +287,12 @@ class Expenses extends Controller
             } else {$this->sendJson(['status' => 'error', 'account_name' => $account->name, 'message' => 'has dependencies']);}
         }
     
-        $this->sendJson(['status' => 'success']);
+        $this->createMsg('success', 'Счета удалены');
     }
 
     public function deleteVendors() {
         if(!isset($_POST['vendors'])){
-            $this->sendJson(['status' => 'error', 'message' => 'no selected items']);
-            return;
+            return $this->createMsg('error', 'no selected items');
         }
         $vendorIds = $_POST['vendors'];
 
@@ -305,7 +307,7 @@ class Expenses extends Controller
             } else {$this->sendJson(['status' => 'error', 'vendor_name' => $vendor->name, 'message' => 'has dependencies']);}
         }
     
-        $this->sendJson(['status' => 'success']);
+        $this->createMsg('success', 'Продавцы удалены');
     }
     
 
@@ -348,8 +350,8 @@ class Expenses extends Controller
         
         $amount = $_POST['amount'];
         if (!isset($amount[0])) {
-                return $this->createMsg('error', 'Amount is empty');
-            }
+            return $this->createMsg('error', 'Amount is empty');
+        }
 
         if (!is_numeric($amount) || $amount <= 0) {
             return $this->createMsg('error', 'Amount is incorrect');
@@ -395,6 +397,8 @@ class Expenses extends Controller
 
         $type = $_POST['type'];
         $selected_date = $_POST['date'];
+        $comment = $_POST['comment'];
+
         
         //date validation (??)
         if(!isset($selected_date[0])){
@@ -429,6 +433,7 @@ class Expenses extends Controller
         $expense->amount = $amount;
         $expense->type = $type;
         $expense->date = $selected_date;
+        $expense->comment = $comment;
     
         // check if vendor and account are set and update them if they are
         $expense->vendor_id = $vendorId;
@@ -437,13 +442,12 @@ class Expenses extends Controller
         // save the changes
         $expense->save();
     
-        $this->sendJson(['status' => 'success']);
+        $this->createMsg('success', 'Транзакция обновлена');
     }
     
     public function deleteExpense() {
         if (!isset($_POST['id'])) {
-            $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
-            return;
+            return $this->createMsg('error', 'Отсутствуют требуемые параметры');
         }
     
         $userId = $_SESSION['user_id'];
@@ -452,8 +456,7 @@ class Expenses extends Controller
         $expense = Expense::where('user_id', $userId)->where('id', $expenseId)->first();
     
         if (!$expense) {
-            $this->sendJson(['status' => 'error', 'message' => 'expense not found']);
-            return;
+            return $this->createMsg('error', 'Транзакция не найдена');
         }
     
         $expense->delete();

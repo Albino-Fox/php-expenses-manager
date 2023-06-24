@@ -243,6 +243,8 @@
                             <input type="text" id="amount" name="amount" class="form-control">
                             <label for="date" class="form-label mt-2">Дата:</label>
                             <input type="text" class="datepicker form-control" name="selected_date" value="<?= date('Y-m-d'); ?>">
+                            <label for="comment" class="form-label mt-2">Комментарий:</label>
+                            <input type="text" id="comment" name="comment" class="form-control">
                             <input type="submit" value="Записать транзакцию" class="btn btn-primary mt-4">
                         </form>
                     </div>

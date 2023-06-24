@@ -6,10 +6,11 @@ $(document).ready(function() {
     };
 
     let table = $('#expensesTable').DataTable({
+        scrollX: true,
         columnDefs: [
-            { targets: [1, 9], orderable: false, width: '5%', className: 'center-text vertical-center'},
+            { targets: [1, 10], orderable: false, width: '5%', className: 'center-text vertical-center'},
             { targets: [0], width: '5%', className: 'center-text vertical-center'},
-            { targets: [9], width: '10%', className: 'center-text vertical-center'},
+            { targets: [10], width: '10%', className: 'center-text vertical-center'},
             {
                 "targets": "_all",
                 "className": "max-width-200 overflow-handle vertical-center"
@@ -44,6 +45,7 @@ $(document).ready(function() {
                 data[i].amount,
                 typeName,
                 data[i].date,
+                data[i].comment,
                 '<button type="button" class="btn btn-primary edit-expense" data-expense-id="' + data[i].id + '"><i class="fas fa-pencil-alt"></i></button><button type="button" class="btn btn-danger delete-expense" data-expense-id="' + data[i].id + '"><i class="fas fa-trash"></i></button>'
             ]).draw();
         }
@@ -104,6 +106,8 @@ $(document).ready(function() {
         }
         $('#editExpenseDate').val(rowData[8]);
 
+        $('#editExpenseComment').val(rowData[9]);
+
         // populate and auto-select the category, vendor, and account
         populateSelect('category', rowData[3]);
         populateSelect('vendor', rowData[4]);
@@ -116,7 +120,6 @@ $(document).ready(function() {
     // handle the form submission
     $('#editExpenseForm').submit(function(e) {
         e.preventDefault();
-
         // get the id of the expense being edited
         let expenseId = $(this).data('id');
 
@@ -130,7 +133,8 @@ $(document).ready(function() {
                 account: $('#editExpenseAccount option:selected').text(),
                 amount: $('#editExpenseAmount').val(),
                 type: $('#editExpenseType').val(),
-                date: $('#editExpenseDate').val()
+                date: $('#editExpenseDate').val(),
+                comment: $('#editExpenseComment').val()
             },
             success: function() {
                 // refresh the table

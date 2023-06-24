@@ -30,6 +30,7 @@
                             <th>Сумма</th>
                             <th>Тип</th>
                             <th>Дата</th>
+                            <th>Комментарий</th>
                             <th>Действие</th>
                         </tr>
                     </thead>
@@ -93,6 +94,10 @@
                 <div class="form-group mb-3">
                     <label for="editExpenseDate">Дата</label>
                     <input type="text" class="form-control datepicker" id="editExpenseDate" name="date">
+                </div>
+                <div class="form-group mb-3">
+                    <label for="editExpenseComment">Комментарий</label>
+                    <input type="text" class="form-control" id="editExpenseComment" name="comment">
                 </div>
                 </form>
             </div>
