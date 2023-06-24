@@ -100,7 +100,6 @@
     <!--SCRIPTS_PLACEHOLDER-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="/js/datepicker_widget.js" type="text/javascript"></script>
     <script src="/js/expense_analysis.js"></script>
     <script src="/js/expenses_table.js"></script>

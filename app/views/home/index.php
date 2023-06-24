@@ -10,7 +10,18 @@
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
-    <div><p>Welcome to the home page of personal expenses tracker app!</p></div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="jumbotron">
+                    <h1 class="display-4">Добро пожаловать!</h1>
+                    <p class="lead">Вы на главной странице менеджера личных расходов.</p>
+                    <hr class="my-4">
+                    <p>С помощью этого инструмента вы сможете записывать, изменять и удалять информацию о ваших транзакциях.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--SCRIPTS_PLACEHOLDER-->
 </body>
 </html>

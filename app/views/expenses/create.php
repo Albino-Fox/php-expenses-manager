@@ -12,40 +12,85 @@
 <body>
     <!--NAVBAR_PLACEHOLDER-->
 
-    <!-- Category Form -->
-    <form id="create_category_form" method="POST" action="/expenses/createCategory" data-response="categoryMsg">
-        <label for="category_name">Category Name:</label>
-        <input type="text" id="category_name" name="category_name">
-        <input type="submit" value="Create Category">
-    </form>
+    <div class="container mt-3 mb-3">
+        <div class="row">
+            <!-- Category Form -->
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-header">Создать категорию</div>
+                    <div class="card-body">
+                        <form id="create_category_form" method="POST" action="/expenses/createCategory" data-response="categoryMsg">
+                            <label for="category_name" class="form-label">Название категории:</label>
+                            <input type="text" id="category_name" name="category_name" class="form-control">
+                            <input type="submit" value="Создать категорию" class="btn btn-primary mt-2">
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Vendor Form -->
-    <form id="create_vendor_form" method="POST" action="/expenses/createVendor" data-response="vendorMsg">
-        <label for="vendor_name">Vendor Name:</label>
-        <input type="text" id="vendor_name" name="vendor_name" >
-        <input type="submit" value="Create Vendor">
-    </form>
+            <!-- Vendor Form -->
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-header">Создать продавца</div>
+                    <div class="card-body">
+                        <form id="create_vendor_form" method="POST" action="/expenses/createVendor" data-response="vendorMsg">
+                            <label for="vendor_name" class="form-label">Название продавца:</label>
+                            <input type="text" id="vendor_name" name="vendor_name" class="form-control">
+                            <input type="submit" value="Создать продавца" class="btn btn-primary mt-2">
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <form id="create_account_form" method="POST" action="/expenses/createAccount" data-response="accountMsg">
-        <label for="account_name">Account Name:</label>
-        <input type="text" id="account_name" name="account_name">
-        <input type="submit" value="Create Account">
-    </form>
+            <!-- Account Form -->
+            <div class="col-lg-4">
+                <div class="card mb-3">
+                    <div class="card-header">Создать счет</div>
+                    <div class="card-body">
+                        <form id="create_account_form" method="POST" action="/expenses/createAccount" data-response="accountMsg">
+                            <label for="account_name" class="form-label">Название счета:</label>
+                            <input type="text" id="account_name" name="account_name" class="form-control">
+                            <input type="submit" value="Создать счет" class="btn btn-primary mt-2">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </br>
+    <div class="container mt-4 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">Просмотр данных</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#categoryModal">
+                                    Просмотреть категории
+                                </button>
+                            </div>
 
-    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#categoryModal">
-        View Categories
-    </button>
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#vendorModal">
+                                    Просмотреть продавцов
+                                </button>
+                            </div>
 
-    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#vendorModal">
-        View Vendors
-    </button>
+                            <div class="col">
+                                <button type="button" class="btn btn-secondary w-100 h-100" data-bs-toggle="modal" data-bs-target="#accountModal">
+                                    Просмотреть счета
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <button type="button" class="" data-bs-toggle="modal" data-bs-target="#accountModal">
-        View Accounts
-    </button>
 
+    
     <!-- Category Modal -->
     <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -156,43 +201,53 @@
     </div>
 
 
-    </br>
-    </br>
-
+    
+    
     <!-- Expense Form -->
-    <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
-        <label for="expense_category_name">Category:</label>
-        <select name="category_name" id="expense_category_name">
-            <option value=""></option>
-            <?php foreach($data['categories'] as $category) { ?>
-                <option value="<?= $category->name; ?>"><?= $category->name; ?></option>
-            <?php } ?>
-        </select>
-        <label for="expense_type_name">Type:</label>
-        <select name="expense_type" id="expense_type_name">
-            <option value="E">Expense</option>
-            <option value="I">Income</option>
-        </select>
-        <label for="expense_vendor_name">Vendor:</label>
-        <select name="vendor_name" id="expense_vendor_name">
-            <option value=""></option>
-            <?php foreach($data['vendors'] as $vendor) { ?>
-                <option value="<?= $vendor->name; ?>"><?= $vendor->name; ?></option>
-            <?php } ?>
-        </select>
-        <label for="expense_account_name">Account:</label>
-        <select name="account_name" id="expense_account_name">
-            <option value=""></option>
-            <?php foreach($data['accounts'] as $account) { ?>
-                <option value="<?= $account->name; ?>"><?= $account->name; ?></option>
-            <?php } ?>
-        </select>
-        <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount">
-        <label for="date">Date:</label>
-        <input type="text" class="datepicker" name="selected_date" value="<?= date('Y-m-d'); ?>">
-        <input type="submit" value="Create Expense">
-    </form>
+    <div class="container mt-5 mb-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">Создать расход</div>
+                    <div class="card-body">
+                        <form id="expense_form" method="POST" action="/expenses/createExpense" data-response="expenseMsg">
+                            <label for="expense_category_name" class="form-label">Категория:</label>
+                            <select name="category_name" id="expense_category_name" class="form-select">
+                                <option value=""></option>
+                                <?php foreach($data['categories'] as $category) { ?>
+                                    <option value="<?= $category->name; ?>"><?= $category->name; ?></option>
+                                <?php } ?>
+                            </select>
+                            <label for="expense_type_name" class="form-label mt-2">Тип:</label>
+                            <select name="expense_type" id="expense_type_name" class="form-select">
+                                <option value="E">Expense</option>
+                                <option value="I">Income</option>
+                            </select>
+                            <label for="expense_vendor_name" class="form-label mt-2">Продавец:</label>
+                            <select name="vendor_name" id="expense_vendor_name" class="form-select">
+                                <option value=""></option>
+                                <?php foreach($data['vendors'] as $vendor) { ?>
+                                    <option value="<?= $vendor->name; ?>"><?= $vendor->name; ?></option>
+                                <?php } ?>
+                                </select>
+                            <label for="expense_account_name" class="form-label mt-2">Счет:</label>
+                            <select name="account_name" id="expense_account_name" class="form-select">
+                                <option value=""></option>
+                                <?php foreach($data['accounts'] as $account) { ?>
+                                    <option value="<?= $account->name; ?>"><?= $account->name; ?></option>
+                                <?php } ?>
+                            </select>
+                            <label for="amount" class="form-label mt-2">Сумма:</label>
+                            <input type="text" id="amount" name="amount" class="form-control">
+                            <label for="date" class="form-label mt-2">Дата:</label>
+                            <input type="text" class="datepicker form-control" name="selected_date" value="<?= date('Y-m-d'); ?>">
+                            <input type="submit" value="Создать расход" class="btn btn-primary mt-4">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--SCRIPTS_PLACEHOLDER-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
