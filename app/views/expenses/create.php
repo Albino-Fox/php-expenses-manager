@@ -152,6 +152,7 @@
     </div>
     </div>
 
+    <!-- Account Modal -->
     <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
