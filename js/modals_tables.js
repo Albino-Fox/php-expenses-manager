@@ -17,7 +17,10 @@ $(document).ready(function() {
                 { targets: [0, 2], orderable: false, "className": "center-text vertical-center"},
                 {
                     "targets": "_all",
-                    "className": "max-width-200 overflow-handle vertical-center"
+                    "className": "max-width-200 overflow-handle vertical-center",
+                    "createdCell": function(td){
+                        td.setAttribute('title', $(td).text());
+                    }
                 }
             ],
             columns: [

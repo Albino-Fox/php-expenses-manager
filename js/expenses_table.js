@@ -13,12 +13,15 @@ $(document).ready(function() {
             { targets: [10], width: '10%', className: 'center-text vertical-center'},
             {
                 "targets": "_all",
-                "className": "max-width-200 overflow-handle vertical-center"
+                "className": "max-width-200 overflow-handle vertical-center",
+                "createdCell": function(td){
+                    td.setAttribute('title', $(td).text());
+                }
             }
         ],
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json'
-            }
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Russian.json'
+        }
     });
 
     function recreateTable(data){
