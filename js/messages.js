@@ -57,7 +57,7 @@ function handleFormSubmission($form) {
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>`);
 
-          // Append alert to alert container
+          // append alert to alert container
           $('#alert-container').append($alert);
         }
       });
