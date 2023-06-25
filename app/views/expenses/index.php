@@ -12,7 +12,7 @@
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
-    <div class="container mt-4">
+    <div class="container mt-4 mb-4">
         <div class="card">
             <div class="card-header text-center">
                 <h3>Ваши транзакции</h3>
@@ -108,9 +108,6 @@
             </div>
         </div>
     </div>
-
-    </br>
-    </br>
 
 
 
