@@ -16,16 +16,16 @@ class Login extends Controller
             $password = trim($_POST['password']);
 
             if (!isset($login[0]) || !isset($password[0])) {
-                return $this->createMsg('error', 'Please fill in all fields');
+                return $this->createMsg('error', 'Пожалуйста, заполните все поля');
             }
     
             $user = User::where('login', $login)->first();
             if ($user && password_verify($password, $user->password)) {
                 $_SESSION['user_id'] = $user->id;
-                $_SESSION['nickname'] = $user->login; //bruh
+                $_SESSION['nickname'] = $user->login;
                 return $this->createMsg('success', '');
             } else {
-                return $this->createMsg('error', 'Incorrect login or password');
+                return $this->createMsg('error', 'Неправильный логин или пароль');
             }
         }
     }
