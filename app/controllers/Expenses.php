@@ -184,18 +184,33 @@ class Expenses extends Controller
     public function getCategories(){
         $user_id = $_SESSION['user_id'];
         $categories = Category::where('user_id', $user_id)->get();
+    
+        foreach ($categories as $category) {
+            $category->is_used = Expense::where('category_id', $category->id)->exists();
+        }
+    
         $this->sendJson($categories);
     }
 
     public function getVendors(){
         $user_id = $_SESSION['user_id'];
         $vendors = Vendor::where('user_id', $user_id)->get();
+
+        foreach ($vendors as $vendor) {
+            $vendor->is_used = Expense::where('vendor_id', $vendor->id)->exists();
+        }
+
         $this->sendJson($vendors);
     }
     
     public function getAccounts(){
         $user_id = $_SESSION['user_id'];
         $accounts = Account::where('user_id', $user_id)->get();
+
+        foreach ($accounts as $account) {
+            $account->is_used = Expense::where('account_id', $account->id)->exists();
+        }
+
         $this->sendJson($accounts);
     }
 

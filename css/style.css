@@ -22,3 +22,7 @@
 .vertical-center {
   vertical-align: middle !important;
 }
+
+.button-container .btn {
+  margin-right: 10px;
+}

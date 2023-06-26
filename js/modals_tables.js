@@ -45,16 +45,19 @@ $(document).ready(function() {
                 success: function (data) {
                     // clear the table before populating it
                     table.clear().draw();
-
+                
                     // add each item to the table
                     for (let i = 0; i < data.length; i++) {
+                        let deleteButton = data[i].is_used 
+                            ? '<button type="button" class="btn btn-warning" disabled><i class="fas fa-exclamation-triangle"></i></button>'  // display warning sign if item is used
+                            : '<button type="button" class="btn btn-danger delete-' + type + '" data-id="' + data[i].id + '">' + '<i class="fas fa-trash"></i>' + '</button>';  // otherwise, display delete button
+
                         table.row.add([
                             '<input type="checkbox" class="select-' + type + '" value="' + data[i].id + '">',
                             data[i].name,
                             '<button type="button" class="btn btn-primary edit-' + type + '" data-id="' + data[i].id + '" data-name="' + data[i].name + '">' + '<i class="fas fa-pencil-alt"></i>' + '</button>' +
-                            '<button type="button" class="btn btn-danger delete-' + type + '" data-id="' + data[i].id + '">' + '<i class="fas fa-trash"></i>' + '</button>'
+                            deleteButton
                         ]).draw();
-                        
                     }
                 }
             });
@@ -88,7 +91,7 @@ $(document).ready(function() {
             $('#editName').val(itemName);
             $('#editId').val(itemId);
         
-            currentType = type; // Set currentType when the edit button is clicked
+            currentType = type; // set currentType when the edit button is clicked
         
             // show the edit modal
             $('#editModal').modal('show');
@@ -97,7 +100,7 @@ $(document).ready(function() {
         $('#saveEdit').off('click').on('click', function() {
             let itemId = $('#editId').val();
             let itemName = $('#editName').val();
-            let type = currentType; // Use currentType instead of $('#editType').val()
+            let type = currentType; // use currentType instead of $('#editType').val()
             let plural = pluralMap[type];
 
             $.ajax({
@@ -120,7 +123,7 @@ $(document).ready(function() {
         });     
 
         $('#' + type + 'Table tbody').on('click', 'tr td:nth-child(1) input.select-' + type + '', function (e) {
-            e.stopPropagation(); // Prevent event propagation to the row
+            e.stopPropagation(); // prevent event propagation to the row
             $(this).closest('tr').toggleClass('selected-row');
         });
 
