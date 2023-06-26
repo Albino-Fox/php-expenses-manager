@@ -256,6 +256,8 @@ class Expenses extends Controller
         }
         $categoryIds = $_POST['categories'];
 
+        $isUsed = false;
+
         $userId = $_SESSION['user_id'];
         $categories = Category::where('user_id', $userId)
                               ->whereIn('id', $categoryIds)
@@ -264,14 +266,22 @@ class Expenses extends Controller
         foreach ($categories as $category) {
             if ($category->expense()->count() == 0) {
                 $category->delete();
-            } else {$this->sendJson(['status' => 'error', 'message' =>  $category->name . ' где-то в транзакциях']);}
+            } else {
+                $isUsed = true;
+            }
         }
     
-        if(count($categories) == 1){
-            $this->createMsg('success', 'Категория удалена');
+        if($isUsed) {
+            {$this->createMsg('error', 'Используемые в существующих транзакциях записи не были удалены');}
         }
-        else {
-            $this->createMsg('success', 'Категории удалены');
+        else 
+        {
+            if(count($categories) == 1){
+                $this->createMsg('success', 'Категория удалена');
+            }
+            else {
+                $this->createMsg('success', 'Категории удалены');
+            }
         }
     }
 
@@ -279,6 +289,9 @@ class Expenses extends Controller
         if(!isset($_POST['accounts'])){
             return $this->createMsg('error', 'Элементы не выбраны');
         }
+
+        $isUsed = false;
+
         $accountIds = $_POST['accounts'];
 
         $userId = $_SESSION['user_id'];
@@ -289,14 +302,22 @@ class Expenses extends Controller
         foreach ($accounts as $account) {
             if ($account->expense()->count() == 0) {
                 $account->delete();
-            } else {$this->sendJson(['status' => 'error', 'message' =>  $account->name . ' где-то в транзакциях']);}
+            } else {
+                $isUsed = true;
+            }
         }
-    
-        if(count($accounts) == 1){
-            $this->createMsg('success', 'Счёт удалён');
+
+        if($isUsed) {
+            {$this->createMsg('error', 'Используемые в существующих транзакциях записи не были удалены');}
         }
-        else {
-            $this->createMsg('success', 'Счета удалены');
+        else 
+        {
+            if(count($accounts) == 1){
+                $this->createMsg('success', 'Счёт удалён');
+            }
+            else {
+                $this->createMsg('success', 'Счета удалены');
+            }
         }
     }
 
@@ -304,6 +325,9 @@ class Expenses extends Controller
         if(!isset($_POST['vendors'])){
             return $this->createMsg('error', 'Элементы не выбраны');
         }
+
+        $isUsed = false;
+
         $vendorIds = $_POST['vendors'];
 
         $userId = $_SESSION['user_id'];
@@ -314,14 +338,22 @@ class Expenses extends Controller
         foreach ($vendors as $vendor) {
             if ($vendor->expense()->count() == 0) {
                 $vendor->delete();
-            } else {$this->sendJson(['status' => 'error', 'message' => $vendor->name . ' где-то в транзакциях']);}
+            } else {
+                $isUsed = true;
+            }
         }
-    
-        if(count($vendors) == 1){
-            $this->createMsg('success', 'Продавец удалён');
+        
+        if($isUsed) {
+            {$this->createMsg('error', 'Используемые в существующих транзакциях записи не были удалены');}
         }
-        else{
-            $this->createMsg('success', 'Продавцы удалены');
+        else 
+        {
+            if(count($vendors) == 1){
+                $this->createMsg('success', 'Продавец удалён');
+            }
+            else{
+                $this->createMsg('success', 'Продавцы удалены');
+            }
         }
     }
     
@@ -342,10 +374,12 @@ class Expenses extends Controller
     
     private function editItem($modelClass) {
         $id = $_POST['id'];
-        $name = $_POST['name'];
-    
-        //validation maybe?
+        $name = trim($_POST['name']);
 
+        if(!isset($name[0])){
+            return $this->createMsg('error', 'Введите название');
+        }
+    
         $item = $modelClass::find($id);
         if ($item) {
             $item->name = $name;
@@ -413,13 +447,27 @@ class Expenses extends Controller
 
 
         $type = $_POST['type'];
-        $selected_date = $_POST['date'];
-        $comment = $_POST['comment'];
+        //type validation
+        if (!isset($type[0])) {
+            return $this->createMsg('error', 'Тип транзакции не установлен');
+        }
+        
+        if (!ctype_alpha($type)) {
+            return $this->createMsg('error', 'Тип транзакции некорректен');
+        }
+
+        if (strlen($type) != 1) {
+            return $this->createMsg('error', 'Тип транзакции должен быть (1) в длину');
+        }
+        //end of type validation
+        
+        $selected_date = trim($_POST['date']);
+        $comment = trim($_POST['comment']);
 
         
         //date validation (??)
         if(!isset($selected_date[0])){
-            return $this->createMsg('error', 'Date is empty');
+            return $this->createMsg('error', 'Дата не установлена');
         }
 
         $selected_date = DateTime::createFromFormat('Y-m-d', $selected_date);
@@ -493,7 +541,7 @@ class Expenses extends Controller
         foreach ($ids as $id) {
             $expense = Expense::where('user_id', $userId)->find($id);
             if(!$expense) {
-                $this->sendJson(['status' => 'error', 'message' => 'expense with id:' . $id . ' not found']);
+                $this->sendJson(['status' => 'error', 'message' => 'Транзакция с id:' . $id . ' не найдена']);
             } else
             if ($expense) {
                 $expense->delete();
