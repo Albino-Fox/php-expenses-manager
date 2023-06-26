@@ -14,6 +14,12 @@ class Expenses extends Controller
         $this->view('expenses/index', ['expenses' => $expenses]);
     }
     
+    public function viewStatistics(){
+        $user_id = $_SESSION['user_id'];
+
+        $this->view('expenses/stats');
+    }
+
     public function createExpense() {
         $user_id = $_SESSION['user_id'];
 
@@ -245,23 +251,15 @@ class Expenses extends Controller
         $this->sendJson($expenses->toArray());
     }
     
-    public function getExpensesAmountStats(){
+    public function getExpensesAmountStats() {
         $user_id = $_SESSION['user_id'];
-        $expenses = Expense::where('user_id', $user_id)->get();
-
-        $incomeAmount = 0;
-        $expenseAmount = 0;
-        
-        foreach ($expenses as $expense) {
-            if ($expense->type === 'I') {
-                $incomeAmount += $expense->amount;
-            } else {
-                $expenseAmount += $expense->amount;
-            }
-        }
-        
-        $this->sendJson(['income' => $incomeAmount, 'expenses' => $expenseAmount]);
+        $expenseModel = new Expense();
+    
+        $amountStats = $expenseModel->getAmountStats($user_id);
+    
+        $this->sendJson($amountStats);
     }
+    
 
 
 

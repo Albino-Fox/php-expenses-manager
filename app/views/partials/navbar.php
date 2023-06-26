@@ -8,6 +8,7 @@
                 <li class="nav-item"><a class="nav-link" href="/home">Главная</a></li>
                 <li class="nav-item"><a class="nav-link" href="/expenses/createExpense">Добавить транзакцию</a></li>
                 <li class="nav-item"><a class="nav-link" href="/expenses">Посмотреть транзакции</a></li>
+                <li class="nav-item"><a class="nav-link" href="/expenses/viewStatistics">Статистика транзакций</a></li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 <?php 
