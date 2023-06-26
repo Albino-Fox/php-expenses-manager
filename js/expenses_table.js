@@ -7,8 +7,17 @@ $(document).ready(function() {
 
     let table = $('#expensesTable').DataTable({
         scrollX: true,
+        drawCallback: function() {
+            var api = this.api();
+            var info = api.page.info();
+            var start = info.page * info.length;
+            
+            api.$('td:first-child', {"page": "current"}).each(function(index) {
+                $(this).html(start + index + 1);
+            });
+        },
         columnDefs: [
-            { targets: [1, 10], orderable: false, width: '5%', className: 'center-text vertical-center'},
+            { targets: [0, 1, 10], orderable: false, width: '5%', className: 'center-text vertical-center'},
             { targets: [0], width: '5%', className: 'center-text vertical-center'},
             { targets: [10], width: '10%', className: 'center-text vertical-center'},
             {
@@ -168,10 +177,10 @@ $(document).ready(function() {
                 id: expenseId
             },
             success: function(response) {
-                response = JSON.parse(response);
+                // response = JSON.parse(response);
                 if (response.status === 'success') {
                     // remove the row from the table
-                    table.row(deleteButton.parents('tr')).remove().draw();  // use preserved context here
+                    table.row(deleteButton.parents('tr')).remove().draw(false);  // use preserved context here
                     updateAnalysis();
                 } else {
                     alert('Error: ' + response.message);
@@ -185,13 +194,27 @@ $(document).ready(function() {
     });
 
     $('#select-all').change(function() {
-        $('.select-expense').prop('checked', $(this).prop('checked'));
+        var isChecked = $(this).prop('checked');
+        
+        table.rows().nodes().to$().each(function() {
+            if(isChecked) {
+                $(this).find('input.select-expense').prop('checked', true);
+                $(this).addClass('selected');
+            } else {
+                $(this).find('input.select-expense').prop('checked', false);
+                $(this).removeClass('selected');
+            }
+        });
+    });
+
+    $('#expensesTable tbody').on('click', 'tr td:nth-child(2) input.select-expense', function (e) {
+        e.stopPropagation(); // Prevent event propagation to the row
+        $(this).closest('tr').toggleClass('selected');
     });
 
     $('#delete-selected').click(function() {
-        let selectedIds = [];
-        $('.select-expense:checked').each(function() {
-            selectedIds.push($(this).data('expense-id'));
+        var selectedIds = $.map(table.rows('.selected').data(), function (item) {
+            return item[2]  // assuming the id is in the third column
         });
 
         if (selectedIds.length > 0) {
@@ -203,12 +226,10 @@ $(document).ready(function() {
                         ids: selectedIds
                     },
                     success: function(response) {
-                        response = JSON.parse(response);
+                        // response = JSON.parse(response);
                         if (response.status === 'success') {
                             // remove the rows from the table
-                            $('.select-expense:checked').each(function() {
-                                table.row($(this).parents('tr')).remove().draw();
-                            });
+                            table.rows('.selected').remove().draw(false);
                             updateAnalysis();
                         } else {
                             alert('Error: ' + response.message);
