@@ -8,9 +8,9 @@ $(document).ready(function() {
     let table = $('#expensesTable').DataTable({
         scrollX: true,
         drawCallback: function() {
-            var api = this.api();
-            var info = api.page.info();
-            var start = info.page * info.length;
+            let api = this.api();
+            let info = api.page.info();
+            let start = info.page * info.length;
             
             api.$('td:first-child', {"page": "current"}).each(function(index) {
                 $(this).html(start + index + 1);
@@ -194,7 +194,7 @@ $(document).ready(function() {
     });
 
     $('#select-all').change(function() {
-        var isChecked = $(this).prop('checked');
+        let isChecked = $(this).prop('checked');
         
         table.rows().nodes().to$().each(function() {
             if(isChecked) {
@@ -213,7 +213,7 @@ $(document).ready(function() {
     });
 
     $('#delete-selected').click(function() {
-        var selectedIds = $.map(table.rows('.selected').nodes().to$(), function (item) {
+        let selectedIds = $.map(table.rows('.selected').nodes().to$(), function (item) {
             return $(item).find('input.select-expense').data('expense-id');
         });        
 

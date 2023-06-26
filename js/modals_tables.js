@@ -106,11 +106,16 @@ $(document).ready(function() {
             });
         });        
 
+        $('#' + type + 'Table tbody').on('click', 'tr td:nth-child(1) input.select-' + type + '', function (e) {
+            e.stopPropagation(); // Prevent event propagation to the row
+            $(this).closest('tr').toggleClass('selected');
+        });
+
         // handle the delete selected items button
         $('#deleteSelected' + capitalizeFirstLetter(plural)).click(function() {
-            let selectedItems = $('.select-' + type + ':checked').map(function() {
-                return $(this).val();
-            }).get();
+            let selectedItems = $.map(table.rows('.selected').nodes().to$(), function (item) {
+                return $(item).find('input.select-' + type + '').val();
+            });
             if(selectedItems){
                 $.ajax({
                     url: '/expenses/delete' + capitalizeFirstLetter(plural),
