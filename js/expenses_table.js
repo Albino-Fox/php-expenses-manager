@@ -213,9 +213,9 @@ $(document).ready(function() {
     });
 
     $('#delete-selected').click(function() {
-        var selectedIds = $.map(table.rows('.selected').data(), function (item) {
-            return item[2]  // assuming the id is in the third column
-        });
+        var selectedIds = $.map(table.rows('.selected').nodes().to$(), function (item) {
+            return $(item).find('input.select-expense').data('expense-id');
+        });        
 
         if (selectedIds.length > 0) {
             if (confirm('Are you sure you want to delete the selected expenses?')) {
