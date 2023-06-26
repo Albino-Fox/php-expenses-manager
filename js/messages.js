@@ -5,69 +5,24 @@ let $alertContainer = $('<div/>', {
 });
 $('body').append($alertContainer);
 
-function handleFormSubmission($form) {
-    $form.on('submit', function(e) {
-      e.preventDefault();
+function showAlert(message, type) {
+  if(type != 'success') type = 'danger';
+  if(message !== undefined && message != null && message.length != 0){
 
-      let path = window.location.pathname;
-      let pathArray = path.split('/').filter(Boolean);
+    let $alert = $(`<div class="alert alert-${type} alert-dismissible fade show" role="alert" style="word-wrap: break-word;">
+      <strong>${message}</strong>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`);
 
-      $.ajax({
-        url: $(this).attr('action'),
-        method: 'POST',
-        data: $(this).serialize(),
-        success: function(response) {
-          let alertType = response.status === 'success' ? 'success' : 'danger';
-          let alertMessage = response.message;
+    // append alert to alert container
+    $('#alert-container').prepend($alert);
 
-          // create bootstrap alert
-          let $alert = $(`<div class="alert alert-${alertType} alert-dismissible fade show" role="alert" style="word-wrap: break-word;">
-            <strong>${alertMessage}</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>`);
 
-          // append alert to alert container
-          $('#alert-container').append($alert);
-
-          // additional redirect functional
-          if (response.status === 'success') {
-            switch (pathArray[0]) {
-              case 'login':
-                // as on login page no other 'success' messages
-                window.location.href = '/home';
-                break;
-              case 'register':
-                // as on login page no other 'success' messages
-                window.location.href = '/login';
-                break;
-            }
-          }
-
-          // start a timer to remove this alert
-          setTimeout(function() {
-            $alert.fadeOut("slow", function(){
-              $(this).remove();
-            });
-          }, 3000);
-        },
-        error: function() {
-          // create bootstrap alert
-          let $alert = $(`<div class="alert alert-danger alert-dismissible fade show" role="alert" style="word-wrap: break-word;">
-            <strong>An error occurred while trying to submit the form.</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>`);
-
-          // append alert to alert container
-          $('#alert-container').append($alert);
-        }
-      });
-    });
+    // start a timer to remove this alert
+    setTimeout(function() {
+        $alert.fadeOut("slow", function(){
+          $(this).remove();
+        });
+      }, 4000); //4 secs
   }
-
-  $('form').each(function() {
-    handleFormSubmission($(this));
-  });
-
-  $('.btn').each(function() {
-    handleFormSubmission($(this));
-  });
+}

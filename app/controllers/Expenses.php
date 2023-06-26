@@ -252,7 +252,7 @@ class Expenses extends Controller
 
     public function deleteCategories() {
         if(!isset($_POST['categories'])){
-            return $this->createMsg('error', 'no selected items');
+            return $this->createMsg('error', 'Элементы не выбраны');
         }
         $categoryIds = $_POST['categories'];
 
@@ -264,15 +264,20 @@ class Expenses extends Controller
         foreach ($categories as $category) {
             if ($category->expense()->count() == 0) {
                 $category->delete();
-            } else {$this->sendJson(['status' => 'error', 'category_name' => $category->name, 'message' => 'has dependencies']);}
+            } else {$this->sendJson(['status' => 'warning', 'message' =>  $category->name . ' где-то в транзакциях']);}
         }
     
-        $this->createMsg('success', 'Категории удалены');
+        if(count($categories) == 1){
+            $this->createMsg('success', 'Категория удалена');
+        }
+        else {
+            $this->createMsg('success', 'Категории удалены');
+        }
     }
 
     public function deleteAccounts() {
         if(!isset($_POST['accounts'])){
-            return $this->createMsg('error', 'no selected items');
+            return $this->createMsg('error', 'Элементы не выбраны');
         }
         $accountIds = $_POST['accounts'];
 
@@ -284,15 +289,20 @@ class Expenses extends Controller
         foreach ($accounts as $account) {
             if ($account->expense()->count() == 0) {
                 $account->delete();
-            } else {$this->sendJson(['status' => 'error', 'account_name' => $account->name, 'message' => 'has dependencies']);}
+            } else {$this->sendJson(['status' => 'error', 'message' =>  $account->name . ' где-то в транзакциях']);}
         }
     
-        $this->createMsg('success', 'Счета удалены');
+        if(count($accounts) == 1){
+            $this->createMsg('success', 'Счёт удалён');
+        }
+        else {
+            $this->createMsg('success', 'Счета удалены');
+        }
     }
 
     public function deleteVendors() {
         if(!isset($_POST['vendors'])){
-            return $this->createMsg('error', 'no selected items');
+            return $this->createMsg('error', 'Элементы не выбраны');
         }
         $vendorIds = $_POST['vendors'];
 
@@ -304,10 +314,15 @@ class Expenses extends Controller
         foreach ($vendors as $vendor) {
             if ($vendor->expense()->count() == 0) {
                 $vendor->delete();
-            } else {$this->sendJson(['status' => 'error', 'vendor_name' => $vendor->name, 'message' => 'has dependencies']);}
+            } else {$this->sendJson(['status' => 'error', 'message' => $vendor->name . ' где-то в транзакциях']);}
         }
     
-        $this->createMsg('success', 'Продавцы удалены');
+        if(count($vendors) == 1){
+            $this->createMsg('success', 'Продавец удалён');
+        }
+        else{
+            $this->createMsg('success', 'Продавцы удалены');
+        }
     }
     
 

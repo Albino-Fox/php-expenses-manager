@@ -65,9 +65,14 @@ $(document).ready(function() {
                 url: '/expenses/delete' + capitalizeFirstLetter(plural),
                 type: 'POST',
                 data: { [plural]: [itemId] },
-                success: function() {
+                success: function(response) {
+                    showAlert(response.message, response.status);
                     // refresh the table
                     $('#' + type + 'Modal').trigger('show.bs.modal');
+                },
+                error: function(response) {
+                    console.log(response[0]);
+                    showAlert(response.message, response.status);
                 }
             });
         });
@@ -96,7 +101,9 @@ $(document).ready(function() {
                 url: '/expenses/edit' + capitalizeFirstLetter(plural),
                 type: 'POST',
                 data: { id: itemId, name: itemName },
-                success: function() {
+                success: function(response) {
+                    showAlert(response.message, response.status);
+
                     // refresh the table
                     $('#' + type + 'Modal').trigger('show.bs.modal');
         
@@ -108,12 +115,12 @@ $(document).ready(function() {
 
         $('#' + type + 'Table tbody').on('click', 'tr td:nth-child(1) input.select-' + type + '', function (e) {
             e.stopPropagation(); // Prevent event propagation to the row
-            $(this).closest('tr').toggleClass('selected');
+            $(this).closest('tr').toggleClass('selected-row');
         });
 
         // handle the delete selected items button
         $('#deleteSelected' + capitalizeFirstLetter(plural)).click(function() {
-            let selectedItems = $.map(table.rows('.selected').nodes().to$(), function (item) {
+            let selectedItems = $.map(table.rows('.selected-row').nodes().to$(), function (item) {
                 return $(item).find('input.select-' + type + '').val();
             });
             if(selectedItems){
@@ -121,7 +128,8 @@ $(document).ready(function() {
                     url: '/expenses/delete' + capitalizeFirstLetter(plural),
                     type: 'POST',
                     data: { [plural]: selectedItems },
-                    success: function() {
+                    success: function(response) {
+                        showAlert(response.message, response.status);
                         // refresh the table
                         $('#' + type + 'Modal').trigger('show.bs.modal');
                     }

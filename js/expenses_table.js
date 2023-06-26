@@ -89,9 +89,13 @@ $(document).ready(function() {
                 $.each(data, function (i, item) {
                     selectElement.append($('<option>').val(item.id).text(item.name));
                 });
-    
+
                 // set the selected option
-                selectElement.find(`option:contains(${currentText})`).attr('selected', 'selected');
+                selectElement.find('option').each(function() {
+                    if ($(this).text() == currentText) {
+                        $(this).attr('selected', 'selected');
+                    }
+                });
             }
         });
     }
