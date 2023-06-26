@@ -214,7 +214,7 @@ class Expenses extends Controller
     
     public function getExpensesInRange() {
         if(!isset($_GET['start']) || !isset($_GET['end'])){
-            return $this->createMsg('error', 'start date and/or end date not provided');
+            return $this->createMsg('error', 'Начальная и/или конечная дата не установлены');
         }
     
         $startDate = $_GET['start'];
@@ -264,7 +264,7 @@ class Expenses extends Controller
         foreach ($categories as $category) {
             if ($category->expense()->count() == 0) {
                 $category->delete();
-            } else {$this->sendJson(['status' => 'warning', 'message' =>  $category->name . ' где-то в транзакциях']);}
+            } else {$this->sendJson(['status' => 'error', 'message' =>  $category->name . ' где-то в транзакциях']);}
         }
     
         if(count($categories) == 1){
@@ -351,6 +351,8 @@ class Expenses extends Controller
             $item->name = $name;
             $item->save();
         }
+
+        $this->createMsg('success','Изменение прошло успешно');
     }    
 
 
@@ -359,17 +361,17 @@ class Expenses extends Controller
         // check if all required parameters are set
 
         if (!isset($_POST['id'], $_POST['category'], $_POST['amount'], $_POST['type'], $_POST['date'])) {
-            $this->sendJson(['status' => 'error', 'message' => 'missing required parameters']);
+            $this->sendJson(['status' => 'error', 'message' => 'Отсутствуют некоторые параметры']);
             return;
         }
         
         $amount = $_POST['amount'];
         if (!isset($amount[0])) {
-            return $this->createMsg('error', 'Amount is empty');
+            return $this->createMsg('error', 'Сумма не установлена');
         }
 
         if (!is_numeric($amount) || $amount <= 0) {
-            return $this->createMsg('error', 'Amount is incorrect');
+            return $this->createMsg('error', 'Сумма некорректна');
         }
 
 
@@ -383,7 +385,7 @@ class Expenses extends Controller
         if ($category) {
             $categoryId = $category->id;
         } else {
-            $this->sendJson(['status' => 'error', 'message' => 'category not found']);
+            $this->sendJson(['status' => 'error', 'message' => 'Категория не найдена']);
             return;
         }
 
@@ -393,7 +395,7 @@ class Expenses extends Controller
             if ($vendor) {
                 $vendorId = $vendor->id;
             } else {
-                $this->sendJson(['status' => 'error', 'message' => 'vendor not found']);
+                $this->sendJson(['status' => 'error', 'message' => 'Продавец не найден']);
                 return;
             }
         }
@@ -404,7 +406,7 @@ class Expenses extends Controller
             if ($account) {
                 $accountId = $account->id;
             } else {
-                $this->sendJson(['status' => 'error', 'message' => 'account not found']);
+                $this->sendJson(['status' => 'error', 'message' => 'Счёт не найден']);
                 return;
             }
         }
@@ -423,13 +425,13 @@ class Expenses extends Controller
         $selected_date = DateTime::createFromFormat('Y-m-d', $selected_date);
 
         if ($selected_date === false) {
-            return $this->createMsg('error', 'Invalid date format');
+            return $this->createMsg('error', 'Неправильный формат даты');
         }
 
         $errors = DateTime::getLastErrors();
 
         if ($errors['error_count'] > 0 || $errors['warning_count'] > 0) {
-            return $this->createMsg('error', 'Invalid date');
+            return $this->createMsg('error', 'Некорректная дата');
         }
         //end of date validation
 
@@ -439,7 +441,7 @@ class Expenses extends Controller
                           ->first();
     
         if (!$expense) {
-            $this->sendJson(['status' => 'error', 'message' => 'expense not found']);
+            $this->sendJson(['status' => 'error', 'message' => 'Транзакция не найдена']);
             return;
         }
     

@@ -71,7 +71,6 @@ $(document).ready(function() {
                     $('#' + type + 'Modal').trigger('show.bs.modal');
                 },
                 error: function(response) {
-                    console.log(response[0]);
                     showAlert(response.message, response.status);
                 }
             });
@@ -103,12 +102,15 @@ $(document).ready(function() {
                 data: { id: itemId, name: itemName },
                 success: function(response) {
                     showAlert(response.message, response.status);
-
+                    
                     // refresh the table
                     $('#' + type + 'Modal').trigger('show.bs.modal');
-        
+                    
                     // close the edit modal
                     $('#editModal').modal('hide');
+                },
+                error: function(response) {
+                    showAlert(response.message, response.status);
                 }
             });
         });        
@@ -132,6 +134,9 @@ $(document).ready(function() {
                         showAlert(response.message, response.status);
                         // refresh the table
                         $('#' + type + 'Modal').trigger('show.bs.modal');
+                    },
+                    error: function(response) {
+                        showAlert(response.message, response.status);
                     }
                 });
             }

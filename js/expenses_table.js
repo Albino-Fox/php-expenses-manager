@@ -96,6 +96,9 @@ $(document).ready(function() {
                         $(this).attr('selected', 'selected');
                     }
                 });
+            },
+            error: function (response) {
+                showAlert(response.message, response.status);
             }
         });
     }
@@ -152,7 +155,9 @@ $(document).ready(function() {
                 date: $('#editExpenseDate').val(),
                 comment: $('#editExpenseComment').val()
             },
-            success: function() {
+            success: function(response) {
+                showAlert(response.message, response.status);
+
                 // refresh the table
                 $.ajax({
                     url: '/expenses/getExpenses',
@@ -166,6 +171,9 @@ $(document).ready(function() {
 
                 // hide the modal
                 $('#editExpenseModal').modal('hide');
+            },
+            error: function(){
+                showAlert('Не удалось получить транзакции', 'danger');
             }
         });
     });
@@ -181,14 +189,17 @@ $(document).ready(function() {
                 id: expenseId
             },
             success: function(response) {
+                showAlert(response.message, response.status);
                 // response = JSON.parse(response);
                 if (response.status === 'success') {
+
                     // remove the row from the table
                     table.row(deleteButton.parents('tr')).remove().draw(false);  // use preserved context here
                     updateAnalysis();
-                } else {
-                    alert('Error: ' + response.message);
                 }
+            },
+            error: function(response) {
+                showAlert(response.message, response.status);
             }
         });
     });
@@ -230,23 +241,21 @@ $(document).ready(function() {
                         ids: selectedIds
                     },
                     success: function(response) {
+                        showAlert(response.message, response.status);
+
                         // response = JSON.parse(response);
                         if (response.status === 'success') {
                             // remove the rows from the table
                             $('#select-all').prop('checked', false);
                             table.rows('.selected').remove().draw(false);
                             updateAnalysis();
-                        } else {
-                            alert('Error: ' + response.message);
                         }
                     },
-                    error: function() {
-                        alert('Failed to delete expenses');
+                    error: function(response) {
+                        showAlert(response.message, response.status);
                     }
                 });
             }
-        } else {
-            alert('Please select at least one expense to delete');
         }
     });
 
