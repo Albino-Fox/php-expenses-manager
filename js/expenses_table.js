@@ -229,6 +229,7 @@ $(document).ready(function() {
                         // response = JSON.parse(response);
                         if (response.status === 'success') {
                             // remove the rows from the table
+                            $('#select-all').prop('checked', false);
                             table.rows('.selected').remove().draw(false);
                             updateAnalysis();
                         } else {
