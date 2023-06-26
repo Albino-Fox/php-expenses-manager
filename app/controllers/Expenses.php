@@ -461,19 +461,28 @@ class Expenses extends Controller
     
         $expense->delete();
     
-        $this->sendJson(['status' => 'success']);
+        return $this->createMsg('success', 'Транзакция удалена');
     }
     
 
     public function deleteSelected(){
+        if (!isset($_POST['ids'])) {
+            return $this->createMsg('error', 'Отсутствуют требуемые параметры');
+        }
+
+        $userId = $_SESSION['user_id'];
         $ids = $_POST['ids'];
+        
         foreach ($ids as $id) {
-            $expense = Expense::find($id);
+            $expense = Expense::where('user_id', $userId)->find($id);
+            if(!$expense) {
+                $this->sendJson(['status' => 'error', 'message' => 'expense with id:' . $id . ' not found']);
+            } else
             if ($expense) {
                 $expense->delete();
             }
         }
-        return $this->sendJson(['status' => 'success', 'message' => 'expenses deleted']);
+        return $this->createMsg('success', 'Выбранные транзакции удалены');
     }
     
 }
