@@ -1,4 +1,7 @@
 $(document).ready(function() {
+    let currentType; 
+
+
     let pluralMap = {
         'category': 'categories',
         'vendor': 'vendors',
@@ -84,18 +87,19 @@ $(document).ready(function() {
             // populate the edit modal with the current name and ID
             $('#editName').val(itemName);
             $('#editId').val(itemId);
-            $('#editType').val(type);
+        
+            currentType = type; // Set currentType when the edit button is clicked
         
             // show the edit modal
             $('#editModal').modal('show');
         });
         
-        $('#saveEdit').click(function() {
+        $('#saveEdit').off('click').on('click', function() {
             let itemId = $('#editId').val();
             let itemName = $('#editName').val();
-            let type = $('#editType').val();
+            let type = currentType; // Use currentType instead of $('#editType').val()
             let plural = pluralMap[type];
-        
+
             $.ajax({
                 url: '/expenses/edit' + capitalizeFirstLetter(plural),
                 type: 'POST',
@@ -113,7 +117,7 @@ $(document).ready(function() {
                     showAlert(response.message, response.status);
                 }
             });
-        });        
+        });     
 
         $('#' + type + 'Table tbody').on('click', 'tr td:nth-child(1) input.select-' + type + '', function (e) {
             e.stopPropagation(); // Prevent event propagation to the row
