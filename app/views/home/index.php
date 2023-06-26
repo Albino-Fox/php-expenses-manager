@@ -10,18 +10,6 @@
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
-    <!-- <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-8">
-                <div class="jumbotron">
-                    <h1 class="display-4">Добро пожаловать!</h1>
-                    <p class="lead">Вы на главной странице менеджера личных расходов.</p>
-                    <hr class="my-4">
-                    <p>С помощью этого инструмента вы сможете записывать, изменять и удалять информацию о ваших транзакциях.</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
 
     <section class="hero text-center text-white d-flex align-items-center justify-content-center" style="background: url('/static/images/hero.jpg') center center no-repeat; background-size: cover; height: 50vh;">
         <div>
