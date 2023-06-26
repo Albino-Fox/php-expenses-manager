@@ -233,7 +233,7 @@ $(document).ready(function() {
         });        
 
         if (selectedIds.length > 0) {
-            if (confirm('Are you sure you want to delete the selected expenses?')) {
+            if (confirm('Вы уверены, что хотите удалить выбранные транзакции?')) {
                 $.ajax({
                     url: '/expenses/deleteSelected',
                     type: 'POST',
@@ -256,6 +256,8 @@ $(document).ready(function() {
                     }
                 });
             }
+        } else {
+            showAlert('Выберите хотя бы одну транзакцию для удаления', 'danger');
         }
     });
 
