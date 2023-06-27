@@ -13,7 +13,11 @@
 <body>
     <!--NAVBAR_PLACEHOLDER-->
     <h1>Expense Statistics</h1>
-    <canvas id="incomeExpenseChart" width="400" height="400"></canvas>
+    <canvas id="incomeExpenseChart" width="100" height="100"></canvas>
+
+    <h2>Category-wise Distribution</h2>
+    <canvas id="categoryDistributionChart" width="100" height="100"></canvas>
+
 
     <!--SCRIPTS_PLACEHOLDER-->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

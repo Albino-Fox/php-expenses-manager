@@ -260,6 +260,16 @@ class Expenses extends Controller
         $this->sendJson($amountStats);
     }
     
+    public function getCategoryDistribution() {
+        $user_id = $_SESSION['user_id'];
+        $expenseModel = new Expense();
+    
+        $categoryDistribution = $expenseModel->getCategoryDistribution($user_id);
+    
+        $this->sendJson($categoryDistribution);
+    }
+    
+    
 
 
 

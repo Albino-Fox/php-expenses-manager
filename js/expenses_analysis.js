@@ -38,6 +38,48 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $.ajax({
+        url: '/expenses/getCategoryDistribution',  // Update with the correct URL
+        type: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            var labels = [];
+            var dataset = [];
+            for (var i = 0; i < data.length; i++) {
+                labels.push(data[i].category_id);  // Assuming category_id is a meaningful identifier to the user. If not, you'll need to fetch the category name.
+                dataset.push(data[i].total);
+            }
+
+            var ctx = document.getElementById('categoryDistributionChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Amount',
+                        data: dataset,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+
 function updateAnalysis() {
     // get the selected start and end dates
     let startDate = $('#startDate').val();

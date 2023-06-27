@@ -41,4 +41,22 @@ class Expense extends Eloquent
         return ['income' => $incomeAmount, 'expenses' => $expenseAmount];
     }
     
+    public function getCategoryDistribution($userId) {
+        $categories = $this::select('category_id', $this->getConnection()->raw('SUM(amount) as total'))
+                        ->where('user_id', $userId)
+                        ->groupBy('category_id')
+                        ->get();
+    
+        $categoryDistribution = [];
+        foreach ($categories as $category) {
+            $categoryDistribution[] = [
+                'category_id' => $category->category_id,
+                'total' => $category->total,
+            ];
+        }
+    
+        return $categoryDistribution;
+    }
+    
+    
 }
