@@ -1,9 +1,4 @@
 function updateAnalysis() {
-    // get the selected start and end dates
-    let startDate = $('#startDate').val();
-    let endDate = $('#endDate').val();
-
-    // fetch the data from the server
     $.ajax({
         url: '/expenses/getExpensesAmountStats',
         type: 'GET',
