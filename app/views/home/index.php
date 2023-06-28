@@ -25,7 +25,6 @@
 
 <section class="features container mt-4">
     <div class="row">
-        <!-- Feature 1 -->
         <div class="col-lg-4 text-center">
             <div class="step-container mb-2">
                 <h2>Шаг 1.</h2>
@@ -33,7 +32,6 @@
             <h2>Добавьте транзакцию</h2>
             <p>На странице "Добавить транзакцию"</p>
         </div>
-        <!-- Feature 2 -->
         <div class="col-lg-4 text-center">
         <div class="step-container mb-2">
                 <h2>Шаг 2.</h2>
@@ -41,7 +39,6 @@
             <h2>Управляйте транзакциями</h2>
             <p>На странице "Посмотреть транзакции"</p>
         </div>
-        <!-- Feature 3 -->
         <div class="col-lg-4 text-center">
         <div class="step-container mb-2">
                 <h2>Шаг 3.</h2>
