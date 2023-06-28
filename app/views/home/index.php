@@ -48,7 +48,6 @@
         </div>
     </div>
 </section>
-    <!-- Call to Action Section -->
     <section class="cta bg-light text-dark text-center p-4 mt-5">
         <h2>Готовы взять контроль над своими финансами?</h2>
         <a href="/expenses/createExpense" class="btn btn-primary btn-lg mt-3">Записать транзакцию</a>
