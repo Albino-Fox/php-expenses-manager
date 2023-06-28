@@ -19,7 +19,7 @@
     </div>
 </section>
 
-<section class="container text-center mt-5">
+<section class="cta text-dark text-center p-4 bg-light text-center pt-5 pb-5">
     <h2 style="font-size: 45px;">Как пользоваться?</h2>
 </section>
 
