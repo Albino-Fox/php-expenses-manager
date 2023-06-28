@@ -12,36 +12,42 @@
     <!--NAVBAR_PLACEHOLDER-->
 
     <section class="hero text-center text-white d-flex align-items-center justify-content-center" style="background: url('/static/images/hero.jpg') center center no-repeat; background-size: cover; height: 50vh;">
-        <div>
-            <h1>Добро пожаловать в BankruptBuddy!</h1>
-            <p class="lead">Мы поможем вам управлять вашими расходами</p>
-        </div>
-    </section>
+    <div>
+        <img src="/static/images/website-icon.png" alt="Website Icon" style="width: 150px; height: 150px; margin-bottom: 20px;">
+        <h1>Добро пожаловать в <span style="color: #FF3333;">Bankrupt</span><span style="color: #32CD32;">Buddy</span>!</h1>
+        <p class="lead">Мы поможем вам управлять вашими расходами</p>
+    </div>
+</section>
 
-    <!-- Features Section -->
-    <section class="features container mt-5">
-        <div class="row">
-            <!-- Feature 1 -->
-            <div class="col-lg-4 text-center">
-                <img src="/static/images/feature1.jpg" alt="Feature 1" class="img-fluid rounded-circle mb-4"> <!-- Replace with your image -->
-                <h2>Отслеживайте финансы</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <!-- Feature 2 -->
-            <div class="col-lg-4 text-center">
-                <img src="/static/images/feature2.jpg" alt="Feature 2" class="img-fluid rounded-circle mb-4"> <!-- Replace with your image -->
-                <h2>undefined</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-            <!-- Feature 3 -->
-            <div class="col-lg-4 text-center">
-                <img src="/static/images/feature3.jpg" alt="Feature 3" class="img-fluid rounded-circle mb-4"> <!-- Replace with your image -->
-                <h2>undefined</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </div>
-        </div>
-    </section>
 
+<section class="features container mt-5">
+    <div class="row">
+        <!-- Feature 1 -->
+        <div class="col-lg-4 text-center">
+            <div class="image-container">
+                <img src="/static/images/feature1.jpg" alt="Feature 1" class="img-fluid mb-4">
+            </div>
+            <h2>Добавьте транзакцию</h2>
+            <p>На странице "Добавить транзакцию"</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="col-lg-4 text-center">
+            <div class="image-container">
+                <img src="/static/images/feature2.jpg" alt="Feature 2" class="img-fluid mb-4">
+            </div>
+            <h2>Управляйте транзакциями</h2>
+            <p>На странице "Посмотреть транзакции"</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="col-lg-4 text-center">
+            <div class="image-container">
+                <img src="/static/images/feature3.jpg" alt="Feature 3" class="img-fluid mb-4">
+            </div>
+            <h2>Смотрите статистику</h2>
+            <p>На странице "Статистика транзакций"</p>
+        </div>
+    </div>
+</section>
     <!-- Call to Action Section -->
     <section class="cta bg-light text-dark text-center p-4 mt-5">
         <h2>Готовы взять контроль над своими финансами?</h2>

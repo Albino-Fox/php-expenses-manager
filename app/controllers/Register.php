@@ -60,7 +60,7 @@ class Register extends Controller
     }
     
     public function createDefaultCategories($user_id){
-        $default_categories = ['Еда', 'Жильё', 'Развлечения', 'Автомобиль'];
+        $default_categories = ['Еда', 'Жильё', 'Развлечения', 'Зарплата', 'Автомобиль'];
     
         foreach ($default_categories as $category_name) {
             $category = new Category;
