@@ -42,21 +42,23 @@ class Expense extends Eloquent
     }
     
     public function getCategoryDistribution($userId) {
-        $categories = $this::select('category_id', $this->getConnection()->raw('SUM(amount) as total'))
-                        ->where('user_id', $userId)
-                        ->groupBy('category_id')
+        $categories = $this::join('categories', 'expenses.category_id', '=', 'categories.id')
+                        ->select('categories.name', $this->getConnection()->raw('SUM(amount) as total'))
+                        ->where('expenses.user_id', $userId)
+                        ->groupBy('categories.name')
                         ->get();
     
         $categoryDistribution = [];
         foreach ($categories as $category) {
             $categoryDistribution[] = [
-                'category_id' => $category->category_id,
+                'category' => $category->name,
                 'total' => $category->total,
             ];
         }
     
         return $categoryDistribution;
-    }
+    }    
     
+
     
 }

@@ -27,8 +27,8 @@
   margin-right: 10px;
 }
 
-.image-container {
-  height: 200px;
+.step-container {
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;

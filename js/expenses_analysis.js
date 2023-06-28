@@ -47,7 +47,7 @@ $(document).ready(function() {
             var labels = [];
             var dataset = [];
             for (var i = 0; i < data.length; i++) {
-                labels.push(data[i].category_id);  // Assuming category_id is a meaningful identifier to the user. If not, you'll need to fetch the category name.
+                labels.push(data[i].category);
                 dataset.push(data[i].total);
             }
 
