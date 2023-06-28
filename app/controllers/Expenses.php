@@ -230,26 +230,6 @@ class Expenses extends Controller
     
         $this->sendJson($expenses);
     }
-
-    
-    
-    public function getExpensesInRange() {
-        if(!isset($_GET['start']) || !isset($_GET['end'])){
-            return $this->createMsg('error', 'Начальная и/или конечная дата не установлены');
-        }
-    
-        $startDate = $_GET['start'];
-        $endDate = $_GET['end'];
-    
-        $userId = $_SESSION['user_id'];
-    
-        $expenses = Expense::where('user_id', $userId)
-            ->where('date', '>=', $startDate)
-            ->where('date', '<=', $endDate)
-            ->get();
-    
-        $this->sendJson($expenses->toArray());
-    }
     
     public function getExpensesAmountStats() {
         $user_id = $_SESSION['user_id'];
@@ -259,17 +239,6 @@ class Expenses extends Controller
     
         $this->sendJson($amountStats);
     }
-    
-    public function getCategoryDistribution() {
-        $user_id = $_SESSION['user_id'];
-        $expenseModel = new Expense();
-    
-        $categoryDistribution = $expenseModel->getCategoryDistribution($user_id);
-    
-        $this->sendJson($categoryDistribution);
-    }
-    
-    
 
 
 
