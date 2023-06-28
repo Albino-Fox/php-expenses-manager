@@ -12,9 +12,9 @@ function updateAnalysis() {
             let totalDifference = totalIncome-totalExpenses;
 
             // display the totals on the page
-            $('#totalIncome').text(totalIncome);
-            $('#totalExpenses').text(totalExpenses);
-            $('#totalDifference').text(totalDifference);
+            $('#totalIncome').text(totalIncome.toFixed(2));
+            $('#totalExpenses').text(totalExpenses.toFixed(2));
+            $('#totalDifference').text(totalDifference.toFixed(2));
         }
     });
 }
