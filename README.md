@@ -1,2 +1,2 @@
-# php-expanses-manager
+# php-expenses-manager
 for university task
