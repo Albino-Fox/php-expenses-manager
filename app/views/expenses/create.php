@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/css/style.css">
-    <title>Add expenses</title>
+    <title>Добавить расходы</title>
 </head>
 <body>
     <!--NAVBAR_PLACEHOLDER-->
