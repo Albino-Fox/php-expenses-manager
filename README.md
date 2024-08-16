@@ -87,24 +87,23 @@ DB_PREFIX=
 
 <a name="resources"><h3>На всякий случай список использованных вещей и их версий</h3></a>
 
-Использовались инструменты:\
-\
-Bootstrap 5.1.0\
-jQuery 1.11.1\
-PHP 8.1.9\
-MySQL 8.0\
-phpMyAdmin 5.2.0\
-Apache 2.4\
-Nginx 1.23\
-CSS3\
-HTML5\
-JS\
-bootstrap-datepicker 1.10.0\
-phpdotenv 5.5.0\
-Laravel/Eloquent 10.x\
-jQuery DataTables 1.10.21\
-Visual Studio Code 1.70.2\
-Open Server 5.4.3\
-Font Awesome 5.15.4\
-Google Chrome 114.0.5735.134\
-Composer 2.5.7
+Использовал инструменты:
+* Bootstrap 5.1.0
+* jQuery 1.11.1
+* PHP 8.1.9
+* MySQL 8.0
+* phpMyAdmin 5.2.0
+* Apache 2.4
+* Nginx 1.23
+* CSS3
+* HTML5
+* JS ES6
+* bootstrap-datepicker 1.10.0
+* phpdotenv 5.5.0
+* Laravel/Eloquent 10.x
+* jQuery DataTables 1.10.21
+* Visual Studio Code 1.70.2
+* Open Server 5.4.3
+* Font Awesome 5.15.4
+* Google Chrome 114.0.5735.134
+* Composer 2.5.7
